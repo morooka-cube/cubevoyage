@@ -6,7 +6,7 @@ order: 8
 Cube Voyageで使用されているロゴや、PC用・iOSデバイス用の壁紙をダウンロードすることができます(Android等の他デバイスでの使用は確認しておりません)。  
 Cube Voyageサイト内の画像の著作権はすべてCube Voyageが所有いたします。私的使用の範疇を超えるご利用の際は[管理人に連絡、質問](/contact/)をご参照の上ご連絡ください。
 
-Cube Voyage All Rights Reserved. Illustrated By [espr](/author/#espr). Logo designed By [Morooka](/author/#morooka).
+Cube Voyage All Rights Reserved. Illustrated By [espr](/author/#えすぷれ). Logo designed By [Morooka](/author/#morooka).
 
 ### ロゴ
 

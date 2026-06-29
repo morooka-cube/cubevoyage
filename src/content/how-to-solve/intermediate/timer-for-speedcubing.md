@@ -77,7 +77,7 @@ Android用→[Twisty Timer](https://play.google.com/store/apps/details?id=com.ar
 ソフトやアプリはいろいろありますので、自分に合ったものを探してみてもいいかもしれません。
 
 (2013年5月8日 執筆者：[HATAMURA](../../../author/#hatamura))  
-(2021年12月8日 加筆修正：[うえしゅう](../../../author/#uesyuu))
+(2021年12月8日 加筆修正：[うえしゅう](../../../author/#うえしゅう))
 
 [このページの最上部に戻る](#)
 
