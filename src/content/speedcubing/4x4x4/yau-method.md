@@ -14,15 +14,15 @@ Yauメソッド(ヤウメソッド、ヨウメソッド、英:Yau Method)は、R
 
 こちらの動画と合わせて御覧ください。  
 <iframe src="https://www.youtube.com/embed/IkWaC5HL2sU" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>  
-![](../../../assets/2015/02/4x4x4-yau-001.gif)  
+![](@assets/2015/02/4x4x4-yau-001.gif)  
 クロス色とその対面のセンターを揃える(クロス色→対面 か 対面→クロス色 どちらでもよい)  
-![](../../../assets/2015/02/4x4x4-yau-002.gif)  
+![](@assets/2015/02/4x4x4-yau-002.gif)  
 クロス色のエッジを3つ全て正しい位置関係で揃える  
-![](../../../assets/2015/02/4x4x4-yau-003.gif)  
+![](@assets/2015/02/4x4x4-yau-003.gif)  
 残りのセンターを全て揃える  
-![](../../../assets/2015/02/4x4x4-yau-004.gif)  
+![](@assets/2015/02/4x4x4-yau-004.gif)  
 残りのクロス色エッジを正しい位置に揃える  
-![](../../../assets/2015/02/4x4x4-yau-005.gif)  
+![](@assets/2015/02/4x4x4-yau-005.gif)  
 残り8つのエッジをコーラ式の要領で揃える  
 3x3x3パート(クロス終了時点から)
 
@@ -60,13 +60,13 @@ Yauメソッド(ヤウメソッド、ヨウメソッド、英:Yau Method)は、R
 
 ・ラストクロスエッジ  
 ヒント集(ヒント集であって手順集ではありません)  
-![](../../../assets/2015/02/4x4x4-yau-006.gif)  
+![](@assets/2015/02/4x4x4-yau-006.gif)  
 Uw' R U' R' Uw
 
-![](../../../assets/2015/02/4x4x4-yau-007.gif)  
+![](@assets/2015/02/4x4x4-yau-007.gif)  
 Uw' R U R' F R' F' R Uw
 
-![](../../../assets/2015/02/4x4x4-yau-008.gif)  
+![](@assets/2015/02/4x4x4-yau-008.gif)  
 Uw' R' F R F' Uw
 
 ラストセンターを揃える前、あるいは揃える過程でラストクロスエッジが揃ったら、崩れないように避難することで大幅な手数短縮に繋がる(執筆者研究中につきアイデアのみ)

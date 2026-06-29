@@ -7,14 +7,14 @@ order: 35
 しかし、初級編の手順だけだと最大で３回手順をこなさねばならず、非常に面倒でした。  
 このステップでは、上面のコーナーのパターン７つを全て覚えます。これにより、**コーナーがどんな状態でも必ず1Lookで揃えることができる**ようになります。
 
-| **5+-1** | [![](../../../assets/2018/06/antisune.png)](../../../assets/2018/06/antisune.png) | R U2 R' U' R U' R' |
+| **5+-1** | [![](@assets/2018/06/antisune.png)](@assets/2018/06/antisune.png) | R U2 R' U' R U' R' |
 | --- | --- | --- |
-| **5+-2** | [![](../../../assets/2018/06/sune.png)](../../../assets/2018/06/sune.png) | R' U2 R U R' U R<br>または、U2した状態から<br>L' U2 L U L' U L |
-| **5+-3** | [![](../../../assets/2018/06/H.png)](../../../assets/2018/06/H.png) | R U2 R' U' R U R' U' R U' R' |
-| **5+-4** | [![](../../../assets/2018/06/pi.png)](../../../assets/2018/06/pi.png) | R U2 R2' U' R2 U' R2' U2 R |
-| **5+-5** | [![](../../../assets/2018/06/U.png)](../../../assets/2018/06/U.png) | R'2 D' R U2 R' D R U2 R |
-| **5+-6** | [![](../../../assets/2018/06/T.png)](../../../assets/2018/06/T.png) | Rw U R' U' R'w F R F'<br>または、U'した状態から<br>x' R' U R' D R U' R' D' |
-| **5+-7** | [![](../../../assets/2018/06/L.png)](../../../assets/2018/06/L.png) | x' R U' R' D R U R' D'<br>または、Uした状態から<br>x U R' U' L U R U' R'w |
+| **5+-2** | [![](@assets/2018/06/sune.png)](@assets/2018/06/sune.png) | R' U2 R U R' U R<br>または、U2した状態から<br>L' U2 L U L' U L |
+| **5+-3** | [![](@assets/2018/06/H.png)](@assets/2018/06/H.png) | R U2 R' U' R U R' U' R U' R' |
+| **5+-4** | [![](@assets/2018/06/pi.png)](@assets/2018/06/pi.png) | R U2 R2' U' R2 U' R2' U2 R |
+| **5+-5** | [![](@assets/2018/06/U.png)](@assets/2018/06/U.png) | R'2 D' R U2 R' D R U2 R |
+| **5+-6** | [![](@assets/2018/06/T.png)](@assets/2018/06/T.png) | Rw U R' U' R'w F R F'<br>または、U'した状態から<br>x' R' U R' D R U' R' D' |
+| **5+-7** | [![](@assets/2018/06/L.png)](@assets/2018/06/L.png) | x' R U' R' D R U R' D'<br>または、Uした状態から<br>x U R' U' L U R U' R'w |
 
 **5+-1**は初級編で覚えた手順と同じです。  
 手順が２個書いてあるパターンは、皆さんがやりやすいと思ったほうを使ってください。両方覚える必要は今のところは無いです。  

@@ -2,7 +2,7 @@
 title: "執筆者について"
 date: "2015-02-10"
 order: 7
-coverImage: "../assets/2017/04/Authors.jpg"
+coverImage: "@assets/2017/04/Authors.jpg"
 ---
 サイト運営メンバーのプロフィールです。  
 また、記事を寄稿して頂いた方のプロフィール（希望した方のみ）も掲載しています。

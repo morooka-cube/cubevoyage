@@ -2,7 +2,7 @@
 title: "公式大会に出てみよう！"
 date: "2016-03-09"
 order: 10
-coverImage: "../../assets/2017/04/Officialevent.jpg"
+coverImage: "@assets/2017/04/Officialevent.jpg"
 ---
 ルービックキューブが揃えられるようになってきて、スピードキューブに興味が出てきたアナタ！  
 ぜひ、公式大会にも参加してみましょう！

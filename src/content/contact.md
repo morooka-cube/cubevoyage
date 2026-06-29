@@ -15,5 +15,5 @@ order: 8
 
 twitterアカウントを持っていない場合は、メールにて受け付けております。こちらのアドレスまでご連絡ください。  
 （セキュリティ上の問題のため、アドレスを画像化しています）  
-[![gmailcom](../assets/2015/10/gmailcom.png)](../assets/2015/10/gmailcom.png)  
+[![gmailcom](@assets/2015/10/gmailcom.png)](@assets/2015/10/gmailcom.png)  
 ※連絡に気づくまで時間がかかる場合がありますのでご容赦ください。

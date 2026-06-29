@@ -2,7 +2,7 @@
 title: "更新履歴"
 date: "2015-04-02"
 order: 1
-coverImage: "../assets/2017/04/History.jpg"
+coverImage: "@assets/2017/04/History.jpg"
 ---
 一部のページは随時更新中です！
 

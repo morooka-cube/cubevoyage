@@ -8,34 +8,34 @@ order: 5
 
 **ステップ４＋　上面の十字（エッジの向き）を揃える**
 
-| **4+-1** | ![](../../../assets/2015/02/4-5.gif) | F R U R' U' F' |
+| **4+-1** | ![](@assets/2015/02/4-5.gif) | F R U R' U' F' |
 | --- | --- | --- |
-| **4+-2** | ![](../../../assets/2015/02/4-4.gif) | Fw R U R' U' F' w |
-| **4+-3** | ![](../../../assets/2015/02/4-6.gif) | F R U R' U' F' Fw R U R' U' F'w |
+| **4+-2** | ![](@assets/2015/02/4-4.gif) | Fw R U R' U' F' w |
+| **4+-3** | ![](@assets/2015/02/4-6.gif) | F R U R' U' F' Fw R U R' U' F'w |
 
 **ステップ５＋上面のコーナーの向きを揃える**
 
-| **5+-1** | ![](../../../assets/2018/06/antisune.png) | R U2 R' U' R U' R' |
+| **5+-1** | ![](@assets/2018/06/antisune.png) | R U2 R' U' R U' R' |
 | --- | --- | --- |
-| **5+-2** | ![](../../../assets/2018/06/sune.png) | R' U2 R U R' U R |
-| **5+-3** | ![](../../../assets/2018/06/H.png) | R U2 R' U' R U R' U' R U' R' |
-| **5+-4** | ![](../../../assets/2018/06/pi.png) | R U2 R2' U' R2 U' R2' U2 R |
-| **5+-5** | ![](../../../assets/2018/06/U.png) | R'2 D' R U2 R' D R U2 R |
-| **5+-6** | ![](../../../assets/2018/06/T.png) | Rw U R' U' R'w F R F' |
-| **5+-7** | ![](../../../assets/2018/06/L.png) | x' R U' R' D R U R' D' |
+| **5+-2** | ![](@assets/2018/06/sune.png) | R' U2 R U R' U R |
+| **5+-3** | ![](@assets/2018/06/H.png) | R U2 R' U' R U R' U' R U' R' |
+| **5+-4** | ![](@assets/2018/06/pi.png) | R U2 R2' U' R2 U' R2' U2 R |
+| **5+-5** | ![](@assets/2018/06/U.png) | R'2 D' R U2 R' D R U2 R |
+| **5+-6** | ![](@assets/2018/06/T.png) | Rw U R' U' R'w F R F' |
+| **5+-7** | ![](@assets/2018/06/L.png) | x' R U' R' D R U R' D' |
 
 **ステップ６＋　３層目のコーナーを揃える**
 
-| **6+-1** | ![6-1](../../../assets/2015/03/visualcube.gif) | R U R’ U’ R’ F R2 U’ R’ U’ R U R’ F’ |
+| **6+-1** | ![6-1](@assets/2015/03/visualcube.gif) | R U R’ U’ R’ F R2 U’ R’ U’ R U R’ F’ |
 | --- | --- | --- |
-| **6+-2** | ![](../../../assets/2015/02/6-2.jpg) | F R U' R' U' R U R' F' - R U R' U' R' F R F' |
+| **6+-2** | ![](@assets/2015/02/6-2.jpg) | F R U' R' U' R U R' F' - R U R' U' R' F R F' |
 
 **ステップ７＋３層目のエッジを１Lookで揃える**
 
-| **7+-1** | ![](../../../assets/2018/06/m2l6-1.gif) | R' U R' U' R' U' R' U R U R2 |
+| **7+-1** | ![](@assets/2018/06/m2l6-1.gif) | R' U R' U' R' U' R' U R U R2 |
 | --- | --- | --- |
-| **7+-2** | ![](../../../assets/2018/06/m2l6-2.gif) | R2 U' R' U' R U R U R U' R |
-| **7+-3** | ![](../../../assets/2015/02/7-3-e1499151599623.gif) | U' M' U M2' U M2' U M' U2 M2' |
-| **7+-4** | ![](../../../assets/2015/02/7-4.gif) | M2 U M2 U2 M2 U M2 |
+| **7+-2** | ![](@assets/2018/06/m2l6-2.gif) | R2 U' R' U' R U R U R U' R |
+| **7+-3** | ![](@assets/2015/02/7-3-e1499151599623.gif) | U' M' U M2' U M2' U M' U2 M2' |
+| **7+-4** | ![](@assets/2015/02/7-4.gif) | M2 U M2 U2 M2 U M2 |
 
 [中級編　トップへ戻る](/how-to-solve/intermediate-m2l/)

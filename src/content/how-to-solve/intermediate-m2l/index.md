@@ -2,7 +2,7 @@
 title: "中級編 (M2L版)"
 date: "2018-06-17"
 order: 2
-coverImage: "../../../assets/2017/04/HowtosolveIntermediate.jpg"
+coverImage: "@assets/2017/04/HowtosolveIntermediate.jpg"
 ---
 この中級編(M2L版)は、初級編で説明されている解法「M2Lメソッド」の発展版になります。  
 最初に1面を揃える解法(LBL法)を学んだ方は[中級編(LBL版)](/how-to-solve/intermediate/)の方をご参照ください。

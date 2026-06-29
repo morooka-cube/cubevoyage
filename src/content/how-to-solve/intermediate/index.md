@@ -2,7 +2,7 @@
 title: "中級編 (LBL版)"
 date: "2015-02-10"
 order: 3
-coverImage: "../../../assets/2017/04/HowtosolveIntermediate.jpg"
+coverImage: "@assets/2017/04/HowtosolveIntermediate.jpg"
 ---
 この中級編(LBL版)は、最初に1面を揃える解法(LBL法)の発展版になります。  
 初級編から来た方は[中級編(M2L版)](/how-to-solve/intermediate-m2l/)の方をご参照ください。

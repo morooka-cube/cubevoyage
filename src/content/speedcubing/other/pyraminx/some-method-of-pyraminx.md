@@ -19,7 +19,7 @@ order: 0
 まず、ややこしくならないようにパーツの名称を書いておきます。  
 （この記事での名称なので、他の場所では違う呼び方がされている場合があります。）
 
-![pyrapartsname](../../../../assets/2015/02/pyrapartsname.png)
+![pyrapartsname](@assets/2015/02/pyrapartsname.png)
 
 図が汚くてすいません。
 
