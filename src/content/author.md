@@ -8,18 +8,18 @@ coverImage: "../assets/2017/04/Authors.jpg"
 また、記事を寄稿して頂いた方のプロフィール（希望した方のみ）も掲載しています。
 
 **・運営メンバー**  
-[HATAMURA](../../../author/#hatamura)  
-[Morooka](../../../author/#morooka)  
-[えすぷれ](../../../author/#espr)
+[HATAMURA](#hatamura)  
+[Morooka](#morooka)  
+[えすぷれ](#えすぷれ)
 
 **・元運営メンバー**  
-[うえしゅう](../../../author/#uesyuu)
+[うえしゅう](#うえしゅう)
 
 **・記事を寄稿して頂いた方**  
-[Gunji](../../../author/#gunji)  
-[山下　智也](../../../author/#ee)  
-[大村　周平](../../../author/#syu)  
-[のりじ](../../../author/#norizi)  
+[Gunji](#gunji)  
+[山下　智也](#山下智也)  
+[大村　周平](#大村周平)  
+[のりじ](#のりじ)  
 
 ### HATAMURA
 

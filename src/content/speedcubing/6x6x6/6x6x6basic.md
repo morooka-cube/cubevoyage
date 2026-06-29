@@ -109,6 +109,6 @@ order: 0
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qhPd4Qno_yw" frameborder="0" allowfullscreen=""></iframe>  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eY-cfE-HS9I" frameborder="0" allowfullscreen=""></iframe>
 
-（2017/01/07 作成者：[HATAMURA](/author/#HATAMURA/)）
+（2017/01/07 作成者：[HATAMURA](/author/#hatamura)）
 
 [**6x6x6　トップに戻る**](/speedcubing/6x6x6/)

@@ -161,7 +161,7 @@ order: 0
 
 ### example solves by 大村 周平
 
-[大村 周平](/author/#syu)さんより、クロスのexample solve動画をご提供いただきました。
+[大村 周平](/author/#大村周平)さんより、クロスのexample solve動画をご提供いただきました。
 
 **[クロス+F2L#1 インスペクションタイム思考　実践20例](https://www.youtube.com/playlist?list=PLLdgupihR8TdDoaASSrVqqlXcxVVn_lYy)**  
 動画でわかりやすく解説されていますので、ぜひご覧ください。
