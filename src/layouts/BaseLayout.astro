@@ -21,8 +21,8 @@ const {
 } = Astro.props;
 
 const fullTitle = path === '/' ? `${SITE.title} — ${SITE.description}` : `${title} | ${SITE.title}`;
-const canonical = new URL(path, SITE.origin).href;
-const ogImageUrl = ogImage ? new URL(ogImage, SITE.origin).href : undefined;
+const canonical = new URL(path, Astro.url.origin).href;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.url.origin).href : undefined;
 ---
 
 <!doctype html>
