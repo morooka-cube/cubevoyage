@@ -43,8 +43,6 @@ coverImage: "../../assets/2017/04/OfficialeventJudgesscramblers.jpg"
 が求められます。  
 ジャッジよりも専門性が求められるので、ほとんどの場合は、その競技に慣れている複数回参加者に割り当てられます。
 
-**  
-[５．公式大会の制限時間　に進む](/officialevent/timelimit/)**
+**[５．公式大会の制限時間　に進む](/officialevent/timelimit/)**
 
-**[３．公式大会のルール　に戻る](/officialevent/regulation/)  
-**
+**[３．公式大会のルール　に戻る](/officialevent/regulation/)**

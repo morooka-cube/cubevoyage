@@ -5,13 +5,9 @@ order: 0
 ---
 **[Megaminxへの招待（wntkさんからの寄稿）](invitation-to-megaminx)**
 
-**
+**[S2Lの解法について](/speedcubing/other/megaminx/s2lvariation/)**
 
-[S2Lの解法について](/speedcubing/other/megaminx/s2lvariation/)
-
-[ブロックの揃え方](/speedcubing/other/megaminx/block-building/)
-
-**
+**[ブロックの揃え方](/speedcubing/other/megaminx/block-building/)**
 
 （協力者募集中。詳しくは[こちら](/about/#kikou)）
 

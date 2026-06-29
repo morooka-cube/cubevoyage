@@ -153,11 +153,7 @@ order: 0
 **例４： F2 D2 R2 U' R2 B2 U R2 D R2 D2 R' U' B' D' F2 D U2 F R L'  
 [![F2 D2 R2 U' R2 B2 U R2 D R2 D2 R' U' B' D' F2 D U2 F R L'](../../../assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)](../../../assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)**
 
-**
-
-解法： y2 R' B' R2 F' D U' R' F
-
-**
+**解法： y2 R' B' R2 F' D U' R' F**
 
 **解説：**最初の3手は定石パターンです。2手目のB'は右薬指で回しています。  
 4手目のF'もポイントですね。あえて1手無駄な動きを挟むことで、その後を揃えやすくしています。  
@@ -167,8 +163,7 @@ order: 0
 
 [大村 周平](/author/#syu)さんより、クロスのexample solve動画をご提供いただきました。
 
-**[クロス+F2L#1 インスペクションタイム思考　実践20例](https://www.youtube.com/playlist?list=PLLdgupihR8TdDoaASSrVqqlXcxVVn_lYy)  
-**  
+**[クロス+F2L#1 インスペクションタイム思考　実践20例](https://www.youtube.com/playlist?list=PLLdgupihR8TdDoaASSrVqqlXcxVVn_lYy)**  
 動画でわかりやすく解説されていますので、ぜひご覧ください。
 
 （2015/12/03　文責：[HATAMURA](/author/)）
