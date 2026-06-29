@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from 'astro:content';
+import DocPage from '../layouts/DocPage.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs');
+  return entries.map((entry) => ({
+    params: { slug: entry.id.replace(/\/index$/, '') },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<DocPage frontmatter={entry.data}>
+  <Content />
+</DocPage>

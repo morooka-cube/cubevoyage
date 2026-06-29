@@ -1,0 +1,53 @@
+---
+// src/pages/**/*.md の frontmatter `layout` から使われる共通ページレイアウト。
+// 本文は <slot/>（Markdown 描画結果）。パンくず・タイトルを付与する。
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getBreadcrumb } from '../lib/pages';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  frontmatter: { title: string; coverImage?: ImageMetadata };
+}
+const { frontmatter } = Astro.props;
+const path = Astro.url.pathname;
+
+const breadcrumb = getBreadcrumb(path);
+
+const optimizedOg = frontmatter.coverImage
+  ? await getImage({ src: frontmatter.coverImage, format: 'jpeg' })
+  : null;
+const ogImage = optimizedOg
+  ? new URL(optimizedOg.src, Astro.site).toString()
+  : undefined;
+---
+
+<BaseLayout title={frontmatter.title} path={path} ogImage={ogImage}>
+  <div class="layout">
+    <main id="main">
+      <div class="content-wrap">
+        <Breadcrumbs trail={breadcrumb} current={frontmatter.title} />
+        <h1 class="page-title">{frontmatter.title}</h1>
+        {frontmatter.coverImage && (
+          <div class="cover-image">
+            <Image src={frontmatter.coverImage} alt="" />
+          </div>
+        )}
+        <article class="content"><slot /></article>
+      </div>
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .cover-image {
+    margin-bottom: 1.5rem;
+  }
+  .cover-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+  }
+</style>

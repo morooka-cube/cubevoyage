@@ -1,0 +1,16 @@
+---
+import { footerNav } from '../lib/pages';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <a href="/">ホーム</a>
+      {footerNav.map((item) => <a href={item.path}>{item.title}</a>)}
+    </nav>
+    <p class="footer-meta">
+      &copy; {year} Cube Voyage — ルービックキューブ／スピードキュービング情報サイト
+    </p>
+  </div>
+</footer>

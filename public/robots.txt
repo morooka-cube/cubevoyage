@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /teapot/
+
+Sitemap: https://cubevoyage.net/sitemap-index.xml

@@ -1,0 +1,86 @@
+---
+import { primaryNav } from '../lib/pages';
+import rawLogo from '../assets/logo.svg?raw';
+
+interface Props {
+  currentPath?: string;
+}
+const { currentPath = '' } = Astro.props;
+
+const primary = primaryNav;
+
+function isActive(path: string) {
+  if (path === '/') return currentPath === '/';
+  return currentPath === path || currentPath.startsWith(path);
+}
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand" aria-label="Cube Voyage ホーム">
+      <Fragment set:html={rawLogo} />
+      <span>Cube Voyage</span>
+    </a>
+
+    <button class="menu-toggle" aria-label="メニューを開閉" aria-expanded="false" data-menu-toggle>
+      <span class="menu-icon" aria-hidden="true">☰</span>
+    </button>
+
+    <nav class="primary-nav" aria-label="メインナビゲーション" data-primary-nav>
+      {
+        primary.map((item) => (
+          <div class:list={['nav-item', { active: isActive(item.path) }]}>
+            <a href={item.path}>{item.title}</a>
+            {item.children.length > 0 && (
+              <div class="dropdown">
+                {item.children.map((child) => (
+                  <a href={child.path}>{child.title}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      }
+      <div class="nav-item">
+        <a href="/about/">このサイトについて</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]') as HTMLButtonElement | null;
+  const nav = document.querySelector('[data-primary-nav]') as HTMLElement | null;
+  const icon = toggle?.querySelector('.menu-icon');
+
+  function setOpen(open: boolean) {
+    if (!nav || !toggle) return;
+    nav.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    if (icon) icon.textContent = open ? '✕' : '☰';
+  }
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.contains('open') ?? false;
+    setOpen(!isOpen);
+  });
+
+  // メニュー外クリックで閉じる
+  document.addEventListener('click', (e) => {
+    if (
+      nav?.classList.contains('open') &&
+      !toggle?.contains(e.target as Node) &&
+      !nav?.contains(e.target as Node)
+    ) {
+      setOpen(false);
+    }
+  });
+
+  // Escape キーで閉じる
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav?.classList.contains('open')) {
+      setOpen(false);
+      toggle?.focus();
+    }
+  });
+</script>
