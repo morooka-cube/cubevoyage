@@ -2,7 +2,7 @@
 title: "5x5x5"
 date: "2015-02-10"
 order: 4
-coverImage: "../../../assets/2017/04/5x5x5-1.jpg"
+coverImage: "~/assets/2017/04/5x5x5-1.jpg"
 ---
 **[5x5x5 基本的な揃え方](basic-solution)  
 [5x5x5 ラスト2センター手順まとめ](/speedcubing/5x5x5/last2center/)  

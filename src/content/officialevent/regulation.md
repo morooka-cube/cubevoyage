@@ -2,7 +2,7 @@
 title: "公式大会のルール"
 date: "2016-03-09"
 order: 3
-coverImage: "../../assets/2017/04/OfficialeventRegulations.jpg"
+coverImage: "~/assets/2017/04/OfficialeventRegulations.jpg"
 ---
 WCA認定の公式大会は、[WCA公式規約](https://www.worldcubeassociation.org/regulations/)に基づいて開催されます。
 

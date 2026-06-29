@@ -2,7 +2,7 @@
 title: "ジャッジとスクランブラ"
 date: "2016-03-09"
 order: 4
-coverImage: "../../assets/2017/04/OfficialeventJudgesscramblers.jpg"
+coverImage: "~/assets/2017/04/OfficialeventJudgesscramblers.jpg"
 ---
 公式大会の競技では「ジャッジ」と「スクランブラ」という役職があり、これらの役職は競技者が交代で請け負うことになります。
 

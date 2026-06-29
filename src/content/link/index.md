@@ -2,7 +2,7 @@
 title: "リンク"
 date: "2015-02-10"
 order: 9
-coverImage: "../../assets/2017/04/Links-1.jpg"
+coverImage: "~/assets/2017/04/Links-1.jpg"
 ---
 スピードキューブをするならぜひ知っておいて欲しいサイトを厳選してまとめています。
 

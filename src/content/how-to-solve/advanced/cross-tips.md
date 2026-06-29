@@ -37,41 +37,41 @@ order: 0
 
 | **２手の定石** |
 | --- |
-| [![crossexampe2-5](../../../assets/2015/12/crossexampe2-5.gif)](../../../assets/2015/12/crossexampe2-5.gif)**　R' F** |
+| [![crossexampe2-5](~/assets/2015/12/crossexampe2-5.gif)](~/assets/2015/12/crossexampe2-5.gif)**　R' F** |
 | R面のクロスエッジがまだ揃っていないときは、図のようなエッジを2手で入れられます。 |
-| [![crossexampe2-2](../../../assets/2015/12/crossexampe2-2.gif)](../../../assets/2015/12/crossexampe2-2.gif)　**R' F** |
+| [![crossexampe2-2](~/assets/2015/12/crossexampe2-2.gif)](~/assets/2015/12/crossexampe2-2.gif)　**R' F** |
 | 同じ２手の手順ですが、この場合は２個を同時に揃えられます。 |
-| [![crossexampe2-4](../../../assets/2015/12/crossexampe2-4.gif)](../../../assets/2015/12/crossexampe2-4.gif)　[![crossexampe2-4-2](../../../assets/2015/12/crossexampe2-4-2.gif)](../../../assets/2015/12/crossexampe2-4-2.gif)　**F R** |
+| [![crossexampe2-4](~/assets/2015/12/crossexampe2-4.gif)](~/assets/2015/12/crossexampe2-4.gif)　[![crossexampe2-4-2](~/assets/2015/12/crossexampe2-4-2.gif)](~/assets/2015/12/crossexampe2-4-2.gif)　**F R** |
 | 簡単なパターンですね。<br>他のすべてのパターンにも言えることですが、右の図のように**センターの位置が違っていても同じパターンだと認識できるようにしておきましょう。**<br>センター合わせは最後に出来るので、センターにとらわれ過ぎないクロス作りを意識しましょう。 |
-| [![crossexampe2-1](../../../assets/2015/12/crossexampe2-1.gif)](../../../assets/2015/12/crossexampe2-1.gif)　**F R2** |
+| [![crossexampe2-1](~/assets/2015/12/crossexampe2-1.gif)](~/assets/2015/12/crossexampe2-1.gif)　**F R2** |
 | センターの位置が違うと気づきにくいパターンです。 |
-| [![crossexampe2-3](../../../assets/2015/12/crossexampe2-3.gif)](../../../assets/2015/12/crossexampe2-3.gif)　**R2 F** |
+| [![crossexampe2-3](~/assets/2015/12/crossexampe2-3.gif)](~/assets/2015/12/crossexampe2-3.gif)　**R2 F** |
 | 上のパターンと混同しないよう、注意が必要です。 |
-| [![crossexampe2-6](../../../assets/2015/12/crossexampe2-6.gif)](../../../assets/2015/12/crossexampe2-6.gif)　**R F** |
+| [![crossexampe2-6](~/assets/2015/12/crossexampe2-6.gif)](~/assets/2015/12/crossexampe2-6.gif)　**R F** |
 | 奥が白赤、右下が白青のエッジです。逆向きに入っているエッジを処理しつつ、同時に２つ入れることができます。 |
 | **３手の定石** |
-| [![crossexampe3-5](../../../assets/2015/12/crossexampe3-51.gif)](../../../assets/2015/12/crossexampe3-51.gif)　**R' F R** |
+| [![crossexampe3-5](~/assets/2015/12/crossexampe3-51.gif)](~/assets/2015/12/crossexampe3-51.gif)　**R' F R** |
 | １個のパーツを入れるための、基本的な手順です。同様のパターンでは**R Uw R'**や**R' D' F**なども使えるので、クロスやセンターの位置に応じて使い分けられるとよいでしょう。 |
-| [![crossexampe3-4](../../../assets/2015/12/crossexampe3-4.gif)](../../../assets/2015/12/crossexampe3-4.gif)　**R' Uw R'**　（奥のエッジは白赤） |
+| [![crossexampe3-4](~/assets/2015/12/crossexampe3-4.gif)](~/assets/2015/12/crossexampe3-4.gif)　**R' Uw R'**　（奥のエッジは白赤） |
 | パーツが反転している（逆向きになっている）ときの基本手順です。**R D' F**なども良いですね。 |
-| [![crossexampe3-2](../../../assets/2015/12/crossexampe3-2.gif)](../../../assets/2015/12/crossexampe3-2.gif)　**R2 F R** |
+| [![crossexampe3-2](~/assets/2015/12/crossexampe3-2.gif)](~/assets/2015/12/crossexampe3-2.gif)　**R2 F R** |
 | ３手で２個を入れられる手順です。2手で揃えられるパターンと混同しがちなので、注意しましょう。 |
-| [![crossexampe3-8](../../../assets/2015/12/crossexampe3-8.gif)](../../../assets/2015/12/crossexampe3-8.gif)　**R' F R2** |
+| [![crossexampe3-8](~/assets/2015/12/crossexampe3-8.gif)](~/assets/2015/12/crossexampe3-8.gif)　**R' F R2** |
 | これも２手のパターンと混同しやすいので注意が必要です。 |
-| [![crossexampe3-3](../../../assets/2015/12/crossexampe3-3.gif)](../../../assets/2015/12/crossexampe3-3.gif)　**R F R2** （右のエッジは白青） |
+| [![crossexampe3-3](~/assets/2015/12/crossexampe3-3.gif)](~/assets/2015/12/crossexampe3-3.gif)　**R F R2** （右のエッジは白青） |
 | 反転しているエッジを同時に処理しています。似たようなパターンで**R D2 F**なんかも使えそうです。 |
-| [![crossexampe3-1](../../../assets/2015/12/crossexampe3-1.gif)](../../../assets/2015/12/crossexampe3-1.gif)　**R' F R'** |
+| [![crossexampe3-1](~/assets/2015/12/crossexampe3-1.gif)](~/assets/2015/12/crossexampe3-1.gif)　**R' F R'** |
 | 嫌な位置にあるエッジを2つ同時にすばやく処理できるので、非常に重宝します。 |
-| ![](../../../assets/2015/12/fRf-1.gif)　**F' R' F** |
+| ![](~/assets/2015/12/fRf-1.gif)　**F' R' F** |
 | こちらも嫌なエッジを2つ同時処理できるパターンです。 |
-| [![crossexampe3-6](../../../assets/2015/12/crossexampe3-6.gif)](../../../assets/2015/12/crossexampe3-6.gif)　**R2 F R2**　（奥のエッジは白赤） |
+| [![crossexampe3-6](~/assets/2015/12/crossexampe3-6.gif)](~/assets/2015/12/crossexampe3-6.gif)　**R2 F R2**　（奥のエッジは白赤） |
 | センター合わせまで考慮した、少し応用的な手順です。センターが違うのであれば、普通にDやUwを使って揃えたほうが速いと思います。違わなくても普通にy D2 R' D2の方がいいかもしれない。 |
-| [![crossexampe3-7](../../../assets/2015/12/crossexampe3-7.gif)](../../../assets/2015/12/crossexampe3-7.gif)　**R2 U'w R**　（奥のエッジは白赤） |
+| [![crossexampe3-7](~/assets/2015/12/crossexampe3-7.gif)](~/assets/2015/12/crossexampe3-7.gif)　**R2 U'w R**　（奥のエッジは白赤） |
 | こちらもセンター合わせを考慮した手順です。 |
 | **４手の定石** |
-| [![crossexampe4-2](../../../assets/2015/12/crossexampe4-2.gif)](../../../assets/2015/12/crossexampe4-2.gif)　**R' U' R' F** |
+| [![crossexampe4-2](~/assets/2015/12/crossexampe4-2.gif)](~/assets/2015/12/crossexampe4-2.gif)　**R' U' R' F** |
 | ４手とやや長いですが、非常に使いどころの多いパターンです。<br>２手目をUやU2に変えたものも使えますね。 |
-| [![crossexampe4-1](../../../assets/2015/12/crossexampe4-1.gif)](../../../assets/2015/12/crossexampe4-1.gif)　**R' U' F R'** |
+| [![crossexampe4-1](~/assets/2015/12/crossexampe4-1.gif)](~/assets/2015/12/crossexampe4-1.gif)　**R' U' F R'** |
 | U面にこの向きでエッジが２つ残ることはなるべく避けたい（これ以外のパーツと組み合わせて揃えるなど）のですが、どうしても残る場合はこういった手順が使えます。似たようなもので**R' U2 F R'**なども使えますね。 |
 
 ### クロスを読めるようにするには
@@ -128,7 +128,7 @@ order: 0
 ※画像は白をD面、青をF面にしています。
 
 **例１：F2 R' D2 F' B' U2 R' D L B2 U F2 L2 D R2 B2 U' D2 R2 U'**  
-[![F2 R' D2 F' B' U2 R' D L B2 U F2 L2 D R2 B2 U' D2 R2 U'](../../../assets/2015/12/F2-R-D2-F-B-U2-R-D-L-B2-U-F2-L2-D-R2-B2-U-D2-R2-U.gif)](../../../assets/2015/12/F2-R-D2-F-B-U2-R-D-L-B2-U-F2-L2-D-R2-B2-U-D2-R2-U.gif)  
+[![F2 R' D2 F' B' U2 R' D L B2 U F2 L2 D R2 B2 U' D2 R2 U'](~/assets/2015/12/F2-R-D2-F-B-U2-R-D-L-B2-U-F2-L2-D-R2-B2-U-D2-R2-U.gif)](~/assets/2015/12/F2-R-D2-F-B-U2-R-D-L-B2-U-F2-L2-D-R2-B2-U-D2-R2-U.gif)  
 **解法：L B U R' U' R' F**
 
 **解説：**最初の2手で2個を揃えるのはすぐに思いつくでしょう。  
@@ -137,21 +137,21 @@ order: 0
 この他にも、少し読む難易度は上がりますが**L R' B y U R B'** なども良さそうです。やや回しづらいですが1手少なくなっています。
 
 **例２：B2 R2 U2 B R2 F U2 R2 U2 F U R D R2 D' L2 U B' F**  
-[![B2 R2 U2 B R2 F U2 R2 U2 F U R D R2 D' L2 U B' F](../../../assets/2015/12/B2-R2-U2-B-R2-F-U2-R2-U2-F-U-R-D-R2-D-L2-U-B-F.gif)](../../../assets/2015/12/B2-R2-U2-B-R2-F-U2-R2-U2-F-U-R-D-R2-D-L2-U-B-F.gif)  
+[![B2 R2 U2 B R2 F U2 R2 U2 F U R D R2 D' L2 U B' F](~/assets/2015/12/B2-R2-U2-B-R2-F-U2-R2-U2-F-U-R-D-R2-D-L2-U-B-F.gif)](~/assets/2015/12/B2-R2-U2-B-R2-F-U2-R2-U2-F-U-R-D-R2-D-L2-U-B-F.gif)  
 **解法：y R' F U'w F L' D2**
 
 **解説：** 1個すでに入っているものの、かなりややこしいですね。マルチクロスが可能な人はU面でやった方がいいと思います。  
 1手で1個揃えたあと、2手目で反転しているエッジをあらかじめ移動させておきます。3手目で残り2つともいい位置に持ってくることができます。
 
 **例３： B2 U F2 U F2 D2 F2 R2 D' F2 U R D' U2 B F' D' F2 R' F2 L' D  
-[![B2 U F2 U F2 D2 F2 R2 D' F2 U R D' U2 B F' D' F2 R' F2 L' D](../../../assets/2015/12/B2-U-F2-U-F2-D2-F2-R2-D-F2-U-R-D-U2-B-F-D-F2-R-F2-L-D.gif)](../../../assets/2015/12/B2-U-F2-U-F2-D2-F2-R2-D-F2-U-R-D-U2-B-F-D-F2-R-F2-L-D.gif)**  
+[![B2 U F2 U F2 D2 F2 R2 D' F2 U R D' U2 B F' D' F2 R' F2 L' D](~/assets/2015/12/B2-U-F2-U-F2-D2-F2-R2-D-F2-U-R-D-U2-B-F-D-F2-R-F2-L-D.gif)](~/assets/2015/12/B2-U-F2-U-F2-D2-F2-R2-D-F2-U-R-D-U2-B-F-D-F2-R-F2-L-D.gif)**  
 **解法： U L' B D R F D'　や　y2 U R' F y D F L D' など**
 
 **解説：**上の2つは解法は同じですが回し方が違います。この2つに限らず、自分にとって回しやすい方法を選択できるとよいですね。  
 最初の3手で1個を揃え、そのあと1手で移動、2手で2個を揃えます。最後にセンターを合わせます。
 
 **例４： F2 D2 R2 U' R2 B2 U R2 D R2 D2 R' U' B' D' F2 D U2 F R L'  
-[![F2 D2 R2 U' R2 B2 U R2 D R2 D2 R' U' B' D' F2 D U2 F R L'](../../../assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)](../../../assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)**
+[![F2 D2 R2 U' R2 B2 U R2 D R2 D2 R' U' B' D' F2 D U2 F R L'](~/assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)](~/assets/2015/12/F2-D2-R2-U-R2-B2-U-R2-D-R2-D2-R-U-B-D-F2-D-U2-F-R-L.gif)**
 
 **解法： y2 R' B' R2 F' D U' R' F**
 

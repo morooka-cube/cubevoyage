@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
+import { remarkAssetAlias } from './src/lib/remark-asset-alias.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,6 +27,9 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: {
     format: 'directory',
+  },
+  markdown: {
+    remarkPlugins: [remarkAssetAlias],
   },
   image: {
     domains: [],

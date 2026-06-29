@@ -17,11 +17,11 @@ order: 0
 
 　解法は基本的に5x5x5のオオクサ式と全く同じものです。  
 　初めに6面のセンターを揃え、  
-![6x6centre](../../../assets/2017/01/6x6centre-1.gif)  
+![6x6centre](~/assets/2017/01/6x6centre-1.gif)  
 次にエッジを全てペアリングし、  
-![6x6edge](../../../assets/2017/01/6x6edge.gif)  
+![6x6edge](~/assets/2017/01/6x6edge.gif)  
 最後に3x3x3の要領で揃える（必要に応じてパリティを処理する）  
-![6x6](../../../assets/2017/01/6x6.gif)  
+![6x6](~/assets/2017/01/6x6.gif)  
 という解法になっています。
 
 　6x6x6は5x5x5とは違い偶数分割なので、  
@@ -34,7 +34,7 @@ order: 0
 　センターの揃え方はいろいろありますが、基本的な揃え方としてオススメしたいのは  
 **「ラインを1本ずつ揃えていく」**  
 というやり方です。  
-![centerscheme-%e3%82%b3%e3%83%94%e3%83%bc](../../../assets/2017/01/260326bfe32cffb7d40029cf61e00265-1.png)  
+![centerscheme-%e3%82%b3%e3%83%94%e3%83%bc](~/assets/2017/01/260326bfe32cffb7d40029cf61e00265-1.png)  
 　この図のようにセンターを4本のラインに分けてこれらを1つずつ揃えていくやり方が、分かりやすくオススメです。
 
 　特に最初のうちは、**「②→①→③→④」の順に揃えていく**のをオススメします。  
@@ -42,7 +42,7 @@ order: 0
 
 　それでは、1面ずつ揃えていきましょう。  
 　最初の1面はどこでも構いません。インスペクション中に揃えやすそうな色を探しましょう。  
-[![%e5%86%99%e7%9c%9f-2017-01-07-17-32-52](../../../assets/2017/01/94b38b511ec3b89da0afed0b9e640423-300x291.png)](/speedcubing/6x6x6/6x6x6%e3%80%80%e5%9f%ba%e6%9c%ac%e7%9a%84%e3%81%aa%e6%8f%83%e3%81%88%e6%96%b9%e3%83%bb%e3%82%b3%e3%83%84/attachment/%e5%86%99%e7%9c%9f-2017-01-07-17-32-52/)  
+[![%e5%86%99%e7%9c%9f-2017-01-07-17-32-52](~/assets/2017/01/94b38b511ec3b89da0afed0b9e640423-300x291.png)](/speedcubing/6x6x6/6x6x6%e3%80%80%e5%9f%ba%e6%9c%ac%e7%9a%84%e3%81%aa%e6%8f%83%e3%81%88%e6%96%b9%e3%83%bb%e3%82%b3%e3%83%84/attachment/%e5%86%99%e7%9c%9f-2017-01-07-17-32-52/)  
 　目安としては、この画像の黄色のセンター（ピンクで囲った部分）のように「パーツが３つ以上まっすぐ並んでいる箇所」がある色を探すとよいでしょう。
 
 　1面が完成したら、次はその対面を揃えていきます。この時揃える色に注意してください。最初の1面で黄色を揃えたなら、次は白色を揃える必要があります。
@@ -57,19 +57,19 @@ order: 0
 
 　センターを揃える際に覚えておくと便利な手順**の一例**を掲載しておきますので、参考にしてください。
 
-| [![6center7](../../../assets/2017/01/6center7.gif)](../../../assets/2017/01/6center7.gif) | **3r U' 3r'** |
+| [![6center7](~/assets/2017/01/6center7.gif)](~/assets/2017/01/6center7.gif) | **3r U' 3r'** |
 | --- | --- |
-| [![6center5](../../../assets/2017/01/6center5.gif)](../../../assets/2017/01/6center5.gif) | **3r U 3r'** |
-| [![6center6](../../../assets/2017/01/6center6.gif)](../../../assets/2017/01/6center6.gif) | **2R 2L' U 2R' 2L** |
-| [![6center1](../../../assets/2017/01/6center1.gif)](../../../assets/2017/01/6center1.gif) | **4R U 4R'** |
-| [![6center2](../../../assets/2017/01/6center2.gif)](../../../assets/2017/01/6center2.gif) | **3l F' 3l'** |
-| [![6center3](../../../assets/2017/01/6center3.gif)](../../../assets/2017/01/6center3.gif) | **3R U' 3R'** |
-| [![6center4](../../../assets/2017/01/6center4.gif)](../../../assets/2017/01/6center4.gif) | **3r U 3r' U 3R U2 3R'** |
-| [![6center8](../../../assets/2017/01/6center8.gif)](../../../assets/2017/01/6center8.gif) | **2R U 3r U' 2R' U 3r'** |
-| [![6center9](../../../assets/2017/01/6center9.gif)](../../../assets/2017/01/6center9.gif) | **2R U' 3r U 2R' U' 3r'** |
-| [![6center10](../../../assets/2017/01/6center10-1.gif)](../../../assets/2017/01/6center10-1.gif) | **3r U 3r' U 3r U2 3r'**<br>(U') 3r U' 3l' U 3r' U' 3l |
-| [![6center11](../../../assets/2017/01/6center11.gif)](../../../assets/2017/01/6center11.gif) | **2R U' 3L' U 2R' U' 3L** |
-| [![6center12](../../../assets/2017/01/6center12-1.gif)](../../../assets/2017/01/6center12-1.gif) | **2R U' 2L' 3r U 2R' U' 2L 3r'** |
+| [![6center5](~/assets/2017/01/6center5.gif)](~/assets/2017/01/6center5.gif) | **3r U 3r'** |
+| [![6center6](~/assets/2017/01/6center6.gif)](~/assets/2017/01/6center6.gif) | **2R 2L' U 2R' 2L** |
+| [![6center1](~/assets/2017/01/6center1.gif)](~/assets/2017/01/6center1.gif) | **4R U 4R'** |
+| [![6center2](~/assets/2017/01/6center2.gif)](~/assets/2017/01/6center2.gif) | **3l F' 3l'** |
+| [![6center3](~/assets/2017/01/6center3.gif)](~/assets/2017/01/6center3.gif) | **3R U' 3R'** |
+| [![6center4](~/assets/2017/01/6center4.gif)](~/assets/2017/01/6center4.gif) | **3r U 3r' U 3R U2 3R'** |
+| [![6center8](~/assets/2017/01/6center8.gif)](~/assets/2017/01/6center8.gif) | **2R U 3r U' 2R' U 3r'** |
+| [![6center9](~/assets/2017/01/6center9.gif)](~/assets/2017/01/6center9.gif) | **2R U' 3r U 2R' U' 3r'** |
+| [![6center10](~/assets/2017/01/6center10-1.gif)](~/assets/2017/01/6center10-1.gif) | **3r U 3r' U 3r U2 3r'**<br>(U') 3r U' 3l' U 3r' U' 3l |
+| [![6center11](~/assets/2017/01/6center11.gif)](~/assets/2017/01/6center11.gif) | **2R U' 3L' U 2R' U' 3L** |
+| [![6center12](~/assets/2017/01/6center12-1.gif)](~/assets/2017/01/6center12-1.gif) | **2R U' 2L' 3r U 2R' U' 2L 3r'** |
 
 ### エッジ
 
@@ -87,12 +87,12 @@ order: 0
 　6x6x6の3パートでは、4x4と同様OLLパリティやPLLパリティがありますが、これらは4x4と全く同じ手順で揃えることができます。6x6を「1列,2列,2列,1列」で分割すれば4x4と同じだと解釈できるからです。
 
 　ちなみに、エッジパートの最後に画像のようなパリティ  
-[![6parity1](../../../assets/2017/01/6parity1.gif)](../../../assets/2017/01/6parity1.gif)  
+[![6parity1](~/assets/2017/01/6parity1.gif)](~/assets/2017/01/6parity1.gif)  
 が残った場合、これは3パートのOLLまで残しておいてください。  
 　6x6は5x5と違い、OLLパリティが存在します。そのため、このエッジが  
-[![6parity2](../../../assets/2017/01/6parity2.gif)](../../../assets/2017/01/6parity2.gif)  
+[![6parity2](~/assets/2017/01/6parity2.gif)](~/assets/2017/01/6parity2.gif)  
 このようなパリティなのか、それとも  
-[![6parity3](../../../assets/2017/01/6parity3.gif)](../../../assets/2017/01/6parity3.gif)  
+[![6parity3](~/assets/2017/01/6parity3.gif)](~/assets/2017/01/6parity3.gif)  
 このようなパリティなのかは、LLになるまで判断することができません。  
 3パートの前にこれを処理してしまうと、後にOLLパリティをもう一度やる羽目になってしまう場合があります。そのため、このようなエッジが残った場合は、LLまで残しておくのが得策と言えます。  
 　またこれをうまく利用するため、このエッジはなるべくLLのエッジに残しておくのがよいでしょう。

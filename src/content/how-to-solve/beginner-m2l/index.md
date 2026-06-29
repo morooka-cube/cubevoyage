@@ -2,7 +2,7 @@
 title: "初級編"
 date: "2018-06-13"
 order: 1
-coverImage: "../../../assets/2017/04/HowtosolveBeginner.jpg"
+coverImage: "~/assets/2017/04/HowtosolveBeginner.jpg"
 ---
 **ルービックキューブをそろえてみたい！**  
 そんな方に、ルービックキューブのそろえ方を紹介しています。

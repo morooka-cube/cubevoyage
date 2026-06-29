@@ -67,7 +67,16 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 **記事内で使用する画像はすべて `src/assets/` で管理する（`public/` には置かない）。**
 
 - 配置先：`src/assets/YYYY/MM/ファイル名`（例：`src/assets/2024/03/cube.jpg`）
-- Markdown からは相対パスで参照する
+- Markdown からは **`~/assets/YYYY/MM/ファイル名`** で参照する（階層に関わらず一定）
+- `~/` は `src/` を指すエイリアス。`src/lib/remark-asset-alias.mjs` のカスタム remark プラグインがビルド時に正しい相対パスへ変換する
 - Astro の画像最適化（`imageService: 'compile'`）を有効化済み。Sharp でビルド時に変換される
-- カバー画像（`coverImage` frontmatter）は `<Image>` コンポーネント（`astro:assets`）で描画する
+- カバー画像（`coverImage` frontmatter）も `~/assets/...` で指定する。`DocPage.astro` が `import.meta.glob` で解決する
 - Markdown インライン画像（`![]()` 構文）もビルド時に最適化される。GIF はアニメーションを保持したまま通過する
+
+例：
+```markdown
+![説明文](~/assets/2024/03/cube.jpg)
+```
+```yaml
+coverImage: "~/assets/2024/03/cube.jpg"
+```

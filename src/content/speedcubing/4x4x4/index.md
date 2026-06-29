@@ -2,7 +2,7 @@
 title: "4x4x4"
 date: "2015-02-10"
 order: 3
-coverImage: "../../../assets/2017/04/4x4x4.jpg"
+coverImage: "~/assets/2017/04/4x4x4.jpg"
 ---
 **[4x4x4 基本的な揃え方](basic-solution)  
 [4x4x4 パリティ手順まとめ](parity)  

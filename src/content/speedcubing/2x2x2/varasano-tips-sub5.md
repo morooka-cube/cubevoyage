@@ -32,17 +32,17 @@ order: 0
 
 | 3個揃っているパターン |
 | --- | --- |
-| ![](../../../assets/2018/03/R2UR2.gif)![](../../../assets/2018/03/R2UR2d.gif) | R2 U R2 |
-| ![](../../../assets/2018/03/r2u7r2.gif)![](../../../assets/2018/03/r2u7r2d.gif) | R2 U' R2 |
-| ![](../../../assets/2018/03/fru7r7.gif)![](../../../assets/2018/03/fru7r7d.gif) | F R U' R' |
-| ![](../../../assets/2018/03/rur7f7.gif)![](../../../assets/2018/03/rur7f7d.gif) | R U R' F' |
+| ![](~/assets/2018/03/R2UR2.gif)![](~/assets/2018/03/R2UR2d.gif) | R2 U R2 |
+| ![](~/assets/2018/03/r2u7r2.gif)![](~/assets/2018/03/r2u7r2d.gif) | R2 U' R2 |
+| ![](~/assets/2018/03/fru7r7.gif)![](~/assets/2018/03/fru7r7d.gif) | F R U' R' |
+| ![](~/assets/2018/03/rur7f7.gif)![](~/assets/2018/03/rur7f7d.gif) | R U R' F' |
 | 2個揃っているパターン |  |
-| ![](../../../assets/2018/03/fu7r7.gif)![](../../../assets/2018/03/fu7r7d.gif) | F U' R' |
-| ![](../../../assets/2018/03/r7u7f.gif)![](../../../assets/2018/03/r7u7fd.gif) | R' U' F |
-| ![](../../../assets/2018/03/r2br2.gif)![](../../../assets/2018/03/r2br2d.gif) | R2 B R2 |
+| ![](~/assets/2018/03/fu7r7.gif)![](~/assets/2018/03/fu7r7d.gif) | F U' R' |
+| ![](~/assets/2018/03/r7u7f.gif)![](~/assets/2018/03/r7u7fd.gif) | R' U' F |
+| ![](~/assets/2018/03/r2br2.gif)![](~/assets/2018/03/r2br2d.gif) | R2 B R2 |
 | 完バラ（1個も揃っていない） |  |
-| ![](../../../assets/2018/03/fr2.gif)![](../../../assets/2018/03/fr2d.gif) | F R2 |
-| ![](../../../assets/2018/03/fu2r.gif)![](../../../assets/2018/03/fu2rd.gif) | F U2 R |
+| ![](~/assets/2018/03/fr2.gif)![](~/assets/2018/03/fr2d.gif) | F R2 |
+| ![](~/assets/2018/03/fu2r.gif)![](~/assets/2018/03/fu2rd.gif) | F U2 R |
 
 **・1面の側面ペアについて**  
 どの不完全1面になるのか（0ペア、1ペア、4ペア）は、不完全1面を作る時に必ず読んでおくようにしましょう。1ペアの場合は、FBLRのどの面にペアが来るのかも読んでおきましょう。  

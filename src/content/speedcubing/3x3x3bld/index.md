@@ -2,7 +2,7 @@
 title: "3x3x3目隠し"
 date: "2015-02-10"
 order: 6
-coverImage: "../../../assets/2017/04/3x3x3-Blindfolded-2.jpg"
+coverImage: "~/assets/2017/04/3x3x3-Blindfolded-2.jpg"
 ---
 **[ステッカー記憶（分析）のやり方](sticker-memorization)  
 [M2法解説](m2-method)  

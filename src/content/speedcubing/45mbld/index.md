@@ -2,7 +2,7 @@
 title: "4x4目隠し・5x5目隠し・3x3複数目隠し"
 date: "2017-04-05"
 order: 7
-coverImage: "../../../assets/2017/04/45BF3MBF-1.jpg"
+coverImage: "~/assets/2017/04/45BF3MBF-1.jpg"
 ---
 **[4BLD入門（Y.Yさんからの寄稿）](/speedcubing/45mbld/yy-4bldbeginner/)  
 [5BLD入門（Y.Yさんからの寄稿）](/speedcubing/45mbld/yy-5bldbeginner/)  

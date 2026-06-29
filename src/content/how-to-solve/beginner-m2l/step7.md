@@ -5,19 +5,19 @@ order: 70
 ---
 いよいよ最後のステップです。  
 残ったエッジ４つを合わせます。  
-[![](../../../assets/2018/06/beginnerm2l0-7-1.gif)](../../../assets/2018/06/beginnerm2l0-7-1.gif)  
+[![](~/assets/2018/06/beginnerm2l0-7-1.gif)](~/assets/2018/06/beginnerm2l0-7-1.gif)  
 **これが終わればルービックキューブが完成します！**  
 また、運よく残り全部がそろっていた場合も完成です！**おめでとうございます！！**
 
 ### そろえ方
 
 まずは、側面のなかから全部そろっている面を探します。  
-[![](../../../assets/2018/06/749d6b550446e94e5ceddfbfcc3fe51a-300x225.jpg)](../../../assets/2018/06/749d6b550446e94e5ceddfbfcc3fe51a.jpg)  
+[![](~/assets/2018/06/749d6b550446e94e5ceddfbfcc3fe51a-300x225.jpg)](~/assets/2018/06/749d6b550446e94e5ceddfbfcc3fe51a.jpg)  
 ない場合は後で説明します。  
 見つけたら、このそろっている面が正面にくるようにしましょう。  
-[![](../../../assets/2018/06/c85fdb8728b5166e248b48f6c17f4539-1-300x225.jpg)](../../../assets/2018/06/c85fdb8728b5166e248b48f6c17f4539-1.jpg)  
+[![](~/assets/2018/06/c85fdb8728b5166e248b48f6c17f4539-1-300x225.jpg)](~/assets/2018/06/c85fdb8728b5166e248b48f6c17f4539-1.jpg)  
 そして、**この手順を１回か２回やれば、完成です！**  
-[![](../../../assets/2018/06/m2lbeggineralgimages7.png)](../../../assets/2018/06/m2lbeggineralgimages7.png)
+[![](~/assets/2018/06/m2lbeggineralgimages7.png)](~/assets/2018/06/m2lbeggineralgimages7.png)
 
 **・そろっている面が１つもない場合**  
 この場合は、ステップ６と同様、**どこからでもいいので上の手順を１回まわしましょう。**  

@@ -2,7 +2,7 @@
 title: "2x2x2"
 date: "2015-02-10"
 order: 9
-coverImage: "../../../assets/2017/04/2x2x2.jpg"
+coverImage: "~/assets/2017/04/2x2x2.jpg"
 ---
 **[Ortega Method解説　(大村 周平さんからの寄稿）](/speedcubing/2x2x2/ortega/ "Ortega Method 解説 (大村　周平さんからの寄稿）")  
 [Varasano(Ortega) Methodで5秒を切るための小ネタ集](/speedcubing/2x2x2/varasano-tips-sub5/)**

@@ -2,7 +2,7 @@
 title: "コラム・用語集"
 date: "2015-02-10"
 order: 11
-coverImage: "../../../assets/2017/04/Column-1.jpg"
+coverImage: "~/assets/2017/04/Column-1.jpg"
 ---
 用語集・コラムを掲載しています。  
 「ルービックキューブのそろえ方」に掲載しているコラム的な記事も一緒にまとめています。

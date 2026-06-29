@@ -2,7 +2,7 @@
 title: "上級編"
 date: "2015-02-10"
 order: 4
-coverImage: "../../../assets/2017/04/HowtosolveAdvanced.jpg"
+coverImage: "~/assets/2017/04/HowtosolveAdvanced.jpg"
 ---
 ここでは、ルービックキューブを早く揃える競技**「スピードキューブ」**の上達を目指したい人に、より早く揃えるための解法を紹介しています。  
 上級編の内容をマスターすれば、20秒、15秒、さらにそれより早くなっていくことも十分可能です。

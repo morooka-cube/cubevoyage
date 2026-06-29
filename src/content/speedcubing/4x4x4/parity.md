@@ -17,7 +17,7 @@ order: 0
 | **対角コーナー2点交換** | F R U' R' U' R U R' F'[U r2 U2 r2 Uw2 r2 Uw2 U] R U R' U' R' F R F' | 動画 |
 | **Pure OP** | Rw2 B2 U2 l U2 r' U2 r U2 F2 r F2 Rw' L U2 Rw2 | 動画 |
 | **Pure Double Parity** | Rw2 B2 Rw' U2 r' U2 B2 r' B2 r B2 r' B2 R' Rw2 B2 R2 | 動画 |
-| ![](../../../assets/2015/02/parityE.gif) | F R U' R' U' R U R' F'[r2 U2 r2 Uw2 r2 Uw2 U2] R U R' U' R' F R F' |  |
+| ![](~/assets/2015/02/parityE.gif) | F R U' R' U' R U R' F'[r2 U2 r2 Uw2 r2 Uw2 U2] R U R' U' R' F R F' |  |
 
 [このページの最上部に戻る](#)  
 [前のページに戻る](../)

@@ -2,7 +2,7 @@
 title: "各種アドバイス"
 date: "2015-02-10"
 order: 5
-coverImage: "../../../assets/2017/04/HowtosolveAdvices.jpg"
+coverImage: "~/assets/2017/04/HowtosolveAdvices.jpg"
 ---
 タイムを伸ばすための様々なアドバイスを掲載しています。
 

@@ -2,7 +2,7 @@
 title: "公式大会とは？"
 date: "2016-03-09"
 order: 1
-coverImage: "../../assets/2017/04/OfficialeventOneabout.jpg"
+coverImage: "~/assets/2017/04/OfficialeventOneabout.jpg"
 ---
 **※公式大会に出るだけなら、このページは読み飛ばしても構いません。**
 
