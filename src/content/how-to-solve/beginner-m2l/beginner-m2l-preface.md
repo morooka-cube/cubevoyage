@@ -27,7 +27,6 @@ Cube Voyageでは、この先進的な解法を用いて、はじめてスピー
 
 それでは、始めましょう。  
 まずは、どのようにそろえていくのかの説明です。  
-**  
-[ステップ０　そろえる流れの説明　に進む](/how-to-solve/beginner-m2l/beginner-m2l-0/)**
+**[ステップ０　そろえる流れの説明　に進む](/how-to-solve/beginner-m2l/beginner-m2l-0/)**
 
 **[初級編　トップへ戻る](/how-to-solve/beginner-m2l/)**

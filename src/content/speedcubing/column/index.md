@@ -15,30 +15,25 @@ coverImage: "../../../assets/2017/04/Column-1.jpg"
 [用語解説:回転記号とは？](/how-to-solve/intermediate/notation/)  
 [用語解説:Lookとは？](/how-to-solve/intermediate/look/)  
 [上級編用語解説](/how-to-solve/advanced/glossary/)  
-[解法「CFOP」とは？](/how-to-solve/advanced/what-is-cfop/)  
-**
+[解法「CFOP」とは？](/how-to-solve/advanced/what-is-cfop/)**
 
 ### コラム
 
 **[CubeSkills翻訳シリーズ](/speedcubing/column/cubeskills/)**
 
-**
+**[考えながら練習するということ](practice-with-thinking)**
 
-[考えながら練習するということ](practice-with-thinking)
+**[大会前にやっておきたい10のこと](10-things-before-competition)**
 
-[大会前にやっておきたい10のこと](10-things-before-competition)
+**[スピードキューブ上達のヒント（Gunjiさんからの寄稿）](hint-for-progressing-speedcubing)**
 
-[スピードキューブ上達のヒント（Gunjiさんからの寄稿）](hint-for-progressing-speedcubing)
+**[一歩進んだメンテナンス](/speedcubing/column/advanced-maintenance/)**
 
-[一歩進んだメンテナンス](/speedcubing/column/advanced-maintenance/)
+**[スピードキューブが速くなるためには（starさんからの寄稿）](how-to-get-fast-by-star)**
 
-[スピードキューブが速くなるためには（starさんからの寄稿）](how-to-get-fast-by-star)
+**[トップキューバーによるソルブ解説動画まとめ](some-of-example-solve)**
 
-[トップキューバーによるソルブ解説動画まとめ](some-of-example-solve)
-
-[ルービックキューブサークルについて（田Φさんからの寄稿）](information-of-speedcubing-club)
-
-**
+**[ルービックキューブサークルについて（田Φさんからの寄稿）](information-of-speedcubing-club)**
 
 **[Roux methodでsub10を目指す人へ（山下 智也さんからの寄稿）](/speedcubing/3x3x3/roux-method/rouxforsub10/ "Roux methodでsub10を目指す人へ")**
 

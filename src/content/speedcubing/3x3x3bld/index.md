@@ -9,21 +9,16 @@ coverImage: "../../../assets/2017/04/3x3x3-Blindfolded-2.jpg"
 [3×3目隠し　ソルブ実例集](/speedcubing/3x3x3bld/examplesolves/)  
 [CO、EO手順まとめ](/speedcubing/3x3x3bld/coeoalgs/)**
 
-**
-
-[記憶法の比較と考察](how-to-memorize)  
+**[記憶法の比較と考察](how-to-memorize)  
 [ハングル記憶法（のりじさんからの寄稿）](/speedcubing/3x3x3bld/hangulmemorization/)  
-[BLD用語集](glossary)
-
-**
+[BLD用語集](glossary)**
 
 **[BLDの裏技（おとさんからの寄稿）](bld-tips)  
 [コミュテイターのすすめ（おとさんからの寄稿）](/speedcubing/3x3x3bld/commutator-no-susume/)  
 [BLDの練習について（おとさんからの寄稿）](/speedcubing/3x3x3bld/bld-practice/)  
 [BLDの記憶について（おとさんからの寄稿）](/speedcubing/3x3x3bld/bld-memory-oto/)  
 [BLDの記憶をより簡単にする（おとさんからの寄稿）](/speedcubing/3x3x3bld/oto-memorize-easier/)  
-[3BLD上達法（Y.Yさんからの寄稿）](/speedcubing/3x3x3bld/yy-3bldtips/)  
-**
+[3BLD上達法（Y.Yさんからの寄稿）](/speedcubing/3x3x3bld/yy-3bldtips/)**
 
 （協力者募集中。詳しくは[こちら](../../about/#kikou)）
 

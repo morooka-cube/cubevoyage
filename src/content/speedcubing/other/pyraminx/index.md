@@ -9,8 +9,7 @@ order: 0
 
 ### リンク
 
-**  
-[Top first method　解説](https://drive.google.com/file/d/1BufHdyknzu1AEMyXZAPgQ_En_yl5jT-M/view)**  
+**[Top first method　解説](https://drive.google.com/file/d/1BufHdyknzu1AEMyXZAPgQ_En_yl5jT-M/view)**  
 KeyHole methodを始めとしたTop fistの各種のmethodについて解説されています。
 
 **[ピラミンクスの書](https://sites.google.com/site/bookofpyraminx/)**  

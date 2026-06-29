@@ -47,7 +47,6 @@ WCAは**WCA delegate**（WCA代理人）を認定しており、認定されたd
 
 運営メンバーは常に募集しているので、興味があれば連絡してみてください。
 
-**  
-[２．公式大会の参加方法　に進む](/officialevent/howtoregist/)**
+**[２．公式大会の参加方法　に進む](/officialevent/howtoregist/)**
 
 **[公式大会に出てみよう！　トップに戻る](/officialevent/)**
