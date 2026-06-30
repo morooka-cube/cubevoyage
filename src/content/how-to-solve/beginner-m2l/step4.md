@@ -8,7 +8,7 @@ order: 40
 **手順を途中で間違えるとステップ１からやりなおしになるので、慎重にいきましょう！**
 
 ステップ４では、上段の４つのエッジパーツの向きだけをそろえます。  
-[![](../../../assets/2018/06/beginnerm2l0-4.gif)](../../../assets/2018/06/beginnerm2l0-4.gif)  
+[![](@assets/2018/06/beginnerm2l0-4.gif)](@assets/2018/06/beginnerm2l0-4.gif)  
 エッジの上段の色（ここでは黄色）が、すべて上段にくるようにします。これによって上段に十字ができます。  
 コーナー、それからエッジの黄色じゃない方の色はいったん無視してください。
 
@@ -17,16 +17,16 @@ order: 40
 この時点で、上段のエッジは４つの可能性があります。
 
 **①1つもできていない ②L字の形になっている  
-[![](../../../assets/2018/06/beginnerm2l4-dot-150x150.gif)](../../../assets/2018/06/beginnerm2l4-dot.gif)[![](../../../assets/2018/06/beginnerm2l4-L-150x150.gif)](../../../assets/2018/06/beginnerm2l4-L.gif)  
+[![](@assets/2018/06/beginnerm2l4-dot-150x150.gif)](@assets/2018/06/beginnerm2l4-dot.gif)[![](@assets/2018/06/beginnerm2l4-L-150x150.gif)](@assets/2018/06/beginnerm2l4-L.gif)  
 ③棒の形になっている ④十字になっている**  
-[![](../../../assets/2018/06/beginnerm2l4-I-150x150.gif)](../../../assets/2018/06/beginnerm2l4-I.gif)[![](../../../assets/2018/06/beginnerm2l0-4-1-150x150.gif)](../../../assets/2018/06/beginnerm2l0-4-1.gif)  
+[![](@assets/2018/06/beginnerm2l4-I-150x150.gif)](@assets/2018/06/beginnerm2l4-I.gif)[![](@assets/2018/06/beginnerm2l0-4-1-150x150.gif)](@assets/2018/06/beginnerm2l0-4-1.gif)  
 （これ以外の形になっている場合は、下の「小ネタ」を見てください）
 
 パターンは３つありますが、ここで覚える手順は１つだけです。  
-[![](../../../assets/2018/06/m2lbeggineralgimages4.png)](../../../assets/2018/06/m2lbeggineralgimages4.png)  
+[![](@assets/2018/06/m2lbeggineralgimages4.png)](@assets/2018/06/m2lbeggineralgimages4.png)  
 さらに、この表を参照してください。  
 **※画像は青が正面です**  
-[![](../../../assets/2018/06/M2Limages-13-300x271.png)](../../../assets/2018/06/M2Limages-13.png)  
+[![](@assets/2018/06/M2Limages-13-300x271.png)](@assets/2018/06/M2Limages-13.png)  
 **１種類の手順で①→②、②→③、③→④をすべて行うことができます。**  
 ③のパターンだった場合は1回、②のパターンだった場合は2回、③のパターンだった場合は3回手順を行うことになります。  
 ただし、どこでも良いわけではなく、**左側に書かれた正しい向きに持ち替えた状態で手順をやらないと先に進めない**ので注意してください。
@@ -41,7 +41,7 @@ order: 40
 ### 小ネタ
 
 ・もし、エッジが先ほど挙げたパターンではない場合、つまり画像のような場合になっている方もいるかもしれません。  
-[![](../../../assets/2018/06/beginnerm2l4-1-150x150.gif)](../../../assets/2018/06/beginnerm2l4-1.gif)[![](../../../assets/2018/06/beginnerm2l4-3-150x150.gif)](../../../assets/2018/06/beginnerm2l4-3.gif)  
+[![](@assets/2018/06/beginnerm2l4-1-150x150.gif)](@assets/2018/06/beginnerm2l4-1.gif)[![](@assets/2018/06/beginnerm2l4-3-150x150.gif)](@assets/2018/06/beginnerm2l4-3.gif)  
 実は、これは**普通にルービックキューブをやっていれば絶対にあり得ない状態**です。  
 可能性としては、「面のシールを張り替えたことがある」「分解して、組みなおしたことがある」などが考えられます。  
 この場合は、いちどルービックキューブを分解して、正しい状態に組みなおし、最初からやり直してください。

@@ -2,7 +2,7 @@
 title: "speedcubingの道"
 date: "2015-02-10"
 order: 6
-coverImage: "../../assets/2017/04/Road-of-speedcubing-1.jpg"
+coverImage: "@assets/2017/04/Road-of-speedcubing-1.jpg"
 ---
 **[新しい競技を始める前に](/speedcubing/things-before-you-start-new-event/ "新しい競技を始める前に")  
 [3x3x3](/speedcubing/3x3x3/ "3x3x3")  

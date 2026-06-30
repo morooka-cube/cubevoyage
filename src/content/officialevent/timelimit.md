@@ -2,7 +2,7 @@
 title: "公式大会の制限時間"
 date: "2016-09-06"
 order: 5
-coverImage: "../../assets/2017/04/OfficialeventTimelimit.jpg"
+coverImage: "@assets/2017/04/OfficialeventTimelimit.jpg"
 ---
 公式大会では、制限時間が設けられています。  
 公式記録を残すためには、指定されたタイムより短い時間で完成させる必要があります。

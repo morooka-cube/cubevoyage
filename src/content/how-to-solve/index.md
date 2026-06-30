@@ -2,7 +2,7 @@
 title: "ルービックキューブのそろえ方"
 date: "2015-02-10"
 order: 2
-coverImage: "../../assets/2017/04/How-to-solve.jpg"
+coverImage: "@assets/2017/04/How-to-solve.jpg"
 ---
 ルービックキューブのそろえ方を解説しています。  
 単にそろえるだけでなく、より早くそろえるための方法も記載しています。  
