@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getBreadcrumb } from '../lib/pages';
 import { Image, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import brandBanner from '../assets/brand-banner.jpg';
 
 interface Props {
   frontmatter: { title: string; coverImage?: ImageMetadata };
@@ -15,12 +16,8 @@ const path = Astro.url.pathname;
 
 const breadcrumb = getBreadcrumb(path);
 
-const optimizedOg = frontmatter.coverImage
-  ? await getImage({ src: frontmatter.coverImage, format: 'jpeg' })
-  : null;
-const ogImage = optimizedOg
-  ? new URL(optimizedOg.src, Astro.site).toString()
-  : undefined;
+const optimizedOg = await getImage({ src: frontmatter.coverImage ?? brandBanner, format: 'jpeg' });
+const ogImage = new URL(optimizedOg.src, Astro.site).toString();
 ---
 
 <BaseLayout title={frontmatter.title} path={path} ogImage={ogImage}>
