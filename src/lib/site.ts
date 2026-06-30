@@ -5,7 +5,6 @@ export const SITE = {
   title: 'Cube Voyage',
   description:
     'ルービックキューブの速いそろえ方、解き方、最速攻略法、解法、スピードキューブ、LBL法など',
-  origin: 'https://cubevoyage.net',
 };
 
 // ヘッダー(主要ナビ)に出すトップレベルページの slug（この順で表示）。
