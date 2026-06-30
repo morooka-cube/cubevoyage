@@ -1,8 +1,16 @@
 // ナビゲーション・パンくず・子ページ一覧をビルド時に導出する。
 // ファイル配置そのものが階層なので、親子情報は frontmatter に持たせない。
+import { getCollection } from "astro:content";
 import type { PageMeta, NavNode } from "./types";
-import { allPages } from "./collection";
 import { PRIMARY_SLUGS } from "./site";
+
+const entries = await getCollection("docs");
+const allPages: PageMeta[] = entries.map((e) => ({
+  path: "/" + e.id + "/",
+  title: e.data.title,
+  order: e.data.order ?? 0,
+  coverImage: e.data.coverImage,
+}));
 
 const byPath = new Map(allPages.map((p) => [p.path, p]));
 
