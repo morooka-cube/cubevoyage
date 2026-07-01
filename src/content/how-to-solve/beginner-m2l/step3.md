@@ -10,7 +10,7 @@ order: 30
 ### そろえ方
 
 まずはステップ２と同様、上の段から下段に入るべきコーナーパーツを探しましょう。  
-これは簡単で、**「白色の入っているコーナーパーツ」**を探すとよいです。  
+これは簡単で、「**白色の入っているコーナーパーツ**」を探すとよいです。  
 [![](@assets/2018/06/7f4043d9a5786f0ae0530c0e46f77ac7-300x225.gif)](@assets/2018/06/7f4043d9a5786f0ae0530c0e46f77ac7.gif)  
 （上段に下段のコーナーパーツが1個もない場合もあります。その場合は後で説明します）
 
@@ -51,7 +51,7 @@ order: 30
 これは特に理屈とかではなく、「こういうものだ」と覚えるとよいと思います。
 
 **上段にコーナーパーツが1個もない場合**  
-これは、ステップ２の時と同様に**「他の位置に入ってしまっている」「位置は正しいが向きが間違っている」のどちらか**の状態になっています。  
+これは、ステップ２の時と同様に「**他の位置に入ってしまっている」「位置は正しいが向きが間違っている」のどちらか**の状態になっています。  
 対処法もステップ２の時と同じで、  
 **「関係ないコーナーパーツを代わりに入れることで、パーツを一旦上段に出す」**  
 ことで解決できます。
@@ -62,10 +62,12 @@ order: 30
 4手目の180度回すところは、人差し指で2回はじいてもよいですが、人差し指と中指で1回ずつはじくというテクニックを使うと、かっこよくそろえられます。  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VIm3GfcPu8M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/1ypQhNqDNHU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 このテクニックは「ダブルトリガー」と呼ばれています。ぜひ身につけましょう。
 
 ③は同じ手順を繰り返すだけなので、非常に簡単です。  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VXdon8fqIj0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 この4手の動きは「セクシームーブ」と呼ばれています。  
 （なんだその名前……って感じですが、海外でも本当にこの名前で呼ばれてます）  
 似たような動きは後で何度も登場するので、こちらも身につけておきましょう。

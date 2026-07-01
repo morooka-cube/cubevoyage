@@ -34,6 +34,7 @@ order: 40
 ### 回し方
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/a_EAejiMtqw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 最初の正面を回すのは、右手を縦に持ち替えた状態で、右の人差し指で回します。  
 2手目～5手目は、ステップ３で出てきた「セクシームーブ」と同じです。  
 最後の1手は、親指で弾き上げるように回しましょう。この動きも基本的な回し方のひとつなので、ここで身につけてしまいましょう。

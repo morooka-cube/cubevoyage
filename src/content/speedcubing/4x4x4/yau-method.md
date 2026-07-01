@@ -14,6 +14,7 @@ Yauメソッド(ヤウメソッド、ヨウメソッド、英:Yau Method)は、R
 
 こちらの動画と合わせて御覧ください。  
 <iframe src="https://www.youtube.com/embed/IkWaC5HL2sU" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>  
+
 ![](@assets/2015/02/4x4x4-yau-001.gif)  
 クロス色とその対面のセンターを揃える(クロス色→対面 か 対面→クロス色 どちらでもよい)  
 ![](@assets/2015/02/4x4x4-yau-002.gif)  

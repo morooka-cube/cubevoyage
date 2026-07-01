@@ -3,7 +3,7 @@ title: "初級編　はじめに"
 date: "2018-06-13"
 order: 1
 ---
-Cube Voyageの初級編では、2016年4月に日本のキューバーであるまっしゅ氏によって提案された**「[M2Lメソッド](http://cubingmushroom.blog.fc2.com/blog-entry-30.html)」**の説明を行っていきます。
+Cube Voyageの初級編では、2016年4月に日本のキューバーであるまっしゅ氏によって提案された「**[M2Lメソッド](http://cubingmushroom.blog.fc2.com/blog-entry-30.html)**」の説明を行っていきます。
 
 M2Lメソッドには、従来の初心者向け解法と比較して次のような利点があります。
 

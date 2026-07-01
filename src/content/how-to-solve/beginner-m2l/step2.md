@@ -63,14 +63,16 @@ order: 20
 そして、動画のように回してみましょう。  
 **①右に入れる場合**  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QvRVMNIIg5o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 **②左に入れる場合**  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/t42GqZp2zgQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 ポイントは、2手目で上段を回すときに、１手目とは逆の手の人差し指を使って、はじくように回すことです。  
 ただし、このときに他の指がキューブから離れないよう注意してください。人差し指以外はキューブをしっかり持った状態で、人差し指の動きだけで回すようにしましょう。  
-このはじく動きは**「トリガー」**と呼ばれており、上段を回すときのもっとも基本的な回し方となります。
+このはじく動きは「**トリガー**」と呼ばれており、上段を回すときのもっとも基本的な回し方となります。
 
 ステップ２で使用した3手の手順は今後も使っていくので、名前をつけておきます。  
-①の場合の、右手を動かしてそろえる手順を**「基本手順・右」**、②の場合の左手を動かしてそろえる手順を**「基本手順・左」**と呼ぶことにします。  
+①の場合の、右手を動かしてそろえる手順を「**基本手順・右**」、②の場合の左手を動かしてそろえる手順を「**基本手順・左**」と呼ぶことにします。  
 [![](@assets/2018/06/M2Limages-2-300x253.png)](@assets/2018/06/M2Limages-2.png)  
 回し方だけでなく、指の使い方もしっかり覚えておいてください。
 

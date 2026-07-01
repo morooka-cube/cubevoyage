@@ -32,6 +32,7 @@ order: 60
 ### 回し方
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-9debxHBsLk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 かなり長い手順ですが、回し方はこれまでの手順を応用すればすぐに分かると思います。  
 持ち替えるタイミングで切れ目を作ると少し覚えやすくなります。
 
