@@ -10,7 +10,7 @@ coverImage: "@assets/2017/04/OfficialeventOneabout.jpg"
 
 ### 公式大会とは
 
-ルービックキューブを始めとした立体パズルの速解き競技、「スピードキューブ」の公式大会は、日本では**「[スピードキュービングジャパン](https://speedcubing.or.jp/)」**が、**「[世界キューブ協会](https://www.worldcubeassociation.org/)」**の認可を受けて開催しています。  
+ルービックキューブを始めとした立体パズルの速解き競技、「スピードキューブ」の公式大会は、日本では「**[スピードキュービングジャパン](https://speedcubing.or.jp/)**」が、「**[世界キューブ協会](https://www.worldcubeassociation.org/)**」の認可を受けて開催しています。  
 首都圏や関西圏を中心に、月1回程度の頻度で開催されています。
 
 [公式規約](https://www.worldcubeassociation.org/regulations/)に基づき、現在は18部門が開催されています。  

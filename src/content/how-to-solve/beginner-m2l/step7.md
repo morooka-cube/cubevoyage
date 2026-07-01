@@ -26,6 +26,7 @@ order: 70
 ### 回し方
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QzxtzPEvCCo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>  
+
 手順が少々長いので、いくつかに区切って考えると覚えやすいかと思います。  
 自分なりに「ここで持ち替えると回しやすいな」という場所を探してみてください。
 
