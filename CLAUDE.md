@@ -60,7 +60,7 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 - ほぼ全ページ SSG（`output: 'static'`）
 - teapot ルートのみ SSR（Cloudflare Workers 上でオンデマンドレンダリング）
 - Cloudflare Workers の静的アセット配信はアセット未一致時に自動で Worker へフォールバックするため、`/teapot` のような非静的ルートは追加設定なしで Worker 側にルーティングされる（`wrangler.toml` に `pages_build_output_dir` は設定しない = Pages ではなく Workers 用の構成）
-- `trailingSlash: 'ignore'` — 末尾スラッシュ有無どちらでもアクセス可
+- `trailingSlash: 'always'` — 末尾スラッシュを必須にする
 
 ### 画像
 
