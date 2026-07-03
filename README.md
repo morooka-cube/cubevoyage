@@ -9,7 +9,7 @@ https://cubevoyage.net
 | 項目 | 内容 |
 |---|---|
 | フレームワーク | Astro 7（`output: 'static'`） |
-| アダプタ | `@astrojs/cloudflare`（`teapot` ルートのみ SSR） |
+| アダプタ | `@astrojs/cloudflare` |
 | ホスティング | Cloudflare Workers（静的アセット配信 + Worker フォールバック） |
 | 本文 | `src/content/**/*.md`（Astro Content Collections） |
 
@@ -29,7 +29,6 @@ src/
   pages/
     [...slug].astro ← Content Collection の全エントリーを描画
     index.astro     ← ホーム（src/home.md の本文を埋め込む）
-    teapot.astro    ← Easter egg（SSR で HTTP 418 を返す）
     404.astro
   home.md
   content.config.ts ← Content Collection スキーマ定義
@@ -51,7 +50,7 @@ npm install
 ```bash
 npm run dev       # 開発サーバー（http://localhost:4321）
 npm run build     # dist/ に出力
-npm run preview   # wrangler dev（Cloudflare Workers シミュレーションでプレビュー・418 を確認可）
+npm run preview   # wrangler dev（Cloudflare Workers シミュレーションでプレビュー）
 npm run deploy    # ビルド＋Cloudflare Workers デプロイ
 ```
 
