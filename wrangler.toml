@@ -1,3 +1,8 @@
 name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[assets]
+# 末尾スラッシュなしでアクセスした際に付与用リダイレクト(30x)を挟まず、
+# その場でページを配信する（trailingSlash: 'ignore' の方針に合わせる）
+html_handling = "drop-trailing-slash"
