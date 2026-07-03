@@ -7,19 +7,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm run dev        # 開発サーバー起動（astro dev）
 npm run build      # 静的サイトビルド（astro build）
-npm run preview    # Cloudflare Workers シミュレーションでプレビュー（wrangler pages dev ./dist）
-npm run deploy     # ビルド＋Cloudflare Pages デプロイ
+npm run preview    # Cloudflare Workers シミュレーションでプレビュー（wrangler dev）
+npm run deploy     # ビルド＋Cloudflare Workers デプロイ
 ```
 
 テスト・lint コマンドは未設定。
 
 ## Architecture
 
-**Cube Voyage** — スピードキューブ（ルービックキューブ）情報サイト。Astro 5 + Cloudflare Pages で構成。
+**Cube Voyage** — スピードキューブ（ルービックキューブ）情報サイト。Astro 7 + Cloudflare Workers で構成。
 
 ### コンテンツ配置（最重要）
 
-すべての本文は `src/content/**/*.md` に置く（Astro 5 Content Collections）。ファイルのパス階層がそのまま URL になる。
+すべての本文は `src/content/**/*.md` に置く（Astro Content Collections）。ファイルのパス階層がそのまま URL になる。
 
 ```
 src/content/how-to-solve.md            → /how-to-solve/
@@ -58,8 +58,8 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 ### デプロイ構成
 
 - ほぼ全ページ SSG（`output: 'static'`）
-- teapot ルートのみ SSR（Cloudflare Worker）
-- `public/_routes.json` で `/teapot` だけ Worker へルーティング
+- teapot ルートのみ SSR（Cloudflare Workers 上でオンデマンドレンダリング）
+- Cloudflare Workers の静的アセット配信はアセット未一致時に自動で Worker へフォールバックするため、`/teapot` のような非静的ルートは追加設定なしで Worker 側にルーティングされる（`wrangler.toml` に `pages_build_output_dir` は設定しない = Pages ではなく Workers 用の構成）
 - `trailingSlash: 'ignore'` — 末尾スラッシュ有無どちらでもアクセス可
 
 ### 画像

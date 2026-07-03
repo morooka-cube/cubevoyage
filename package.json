@@ -6,16 +6,16 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "wrangler pages dev ./dist",
+    "preview": "wrangler dev",
     "astro": "astro",
-    "deploy": "astro build && wrangler pages deploy ./dist"
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.0",
+    "@astrojs/cloudflare": "^14.0.2",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^5.13.0"
+    "astro": "^7.0.4"
   },
   "devDependencies": {
-    "wrangler": "^4.40.0"
+    "wrangler": "^4.106.0"
   }
 }

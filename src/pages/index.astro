@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Content as HomeContent } from '../home.md';
 import { SITE } from '../lib/site';
 import { primaryNav, footerNav } from '../lib/nav';
+import { Image, getImage } from 'astro:assets';
 import brandBanner from '../assets/brand-banner.jpg';
 
 // 主要セクションのカード（子ページ数つき）
@@ -11,18 +12,20 @@ const sectionCards = primaryNav.map((n) => ({
   title: n.title,
   count: n.children.length,
 }));
+
+const optimizedOg = await getImage({ src: brandBanner, format: 'jpeg' });
 ---
 
-<BaseLayout title={SITE.title} path="/" ogImage={brandBanner.src}>
+<BaseLayout title={SITE.title} path="/" ogImage={optimizedOg.src}>
   <div class="layout">
     <main id="main">
       <section class="hero">
-        <img
+        <Image
           class="hero-banner"
-          src={brandBanner.src}
+          src={brandBanner}
           alt="Cube Voyage — It's time to start eternal travel."
-          width="960"
-          height="397"
+          width={960}
+          height={397}
         />
         <h1 class="sr-only">Cube Voyage</h1>
         <p class="hero-desc">{SITE.description}</p>

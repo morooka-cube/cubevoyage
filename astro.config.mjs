@@ -24,6 +24,9 @@ export default defineConfig({
   },
   // 末尾スラッシュの有無を問わずアクセス可能にする
   trailingSlash: 'ignore',
+  // Astro 7 で compressHTML の既定値が 'jsx' に変更されたため、
+  // v6 以前と同じ HTML 圧縮挙動を維持する
+  compressHTML: true,
   build: {
     format: 'directory',
   },
