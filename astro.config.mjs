@@ -22,8 +22,8 @@ export default defineConfig({
   redirects: {
     '/how-to-solve/beginner': '/how-to-solve/beginner-m2l/',
   },
-  // 末尾スラッシュの有無を問わずアクセス可能にする
-  trailingSlash: 'ignore',
+  // 末尾スラッシュを必須にする
+  trailingSlash: 'always',
   // Astro 7 で compressHTML の既定値が 'jsx' に変更されたため、
   // v6 以前と同じ HTML 圧縮挙動を維持する
   compressHTML: true,
