@@ -6,8 +6,6 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="footer-inner">
     <nav class="footer-nav" aria-label="フッターナビゲーション">
-      <a href="/">ホーム</a>
-      {footerNav.map((item) => <a href={item.path}>{item.title}</a>)}
       <a
         href="https://x.com/CubeVoyage"
         class="social-link"
@@ -36,6 +34,8 @@ const year = new Date().getFullYear();
           />
         </svg>
       </a>
+      <a href="/">ホーム</a>
+      {footerNav.map((item) => <a href={item.path}>{item.title}</a>)}
     </nav>
 
     <p class="footer-meta">
