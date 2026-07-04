@@ -492,6 +492,13 @@ main {
 .footer-nav a:hover {
   color: #fff;
 }
+.footer-nav .social-link {
+  display: inline-flex;
+  align-items: center;
+}
+.footer-nav .social-link-first {
+  margin-left: auto;
+}
 .footer-meta {
   font-size: 0.82rem;
   color: #8b95a3;
