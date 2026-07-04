@@ -1,3 +1,6 @@
 name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[vars]
+PUBLIC_CF_BEACON_TOKEN = "5d39d5074f0a4aa689b6208de9ed9e43"
