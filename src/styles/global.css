@@ -492,6 +492,21 @@ main {
 .footer-nav a:hover {
   color: #fff;
 }
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #c7cfdb;
+}
+.social-link:hover {
+  color: #fff;
+}
 .footer-meta {
   font-size: 0.82rem;
   color: #8b95a3;
@@ -581,6 +596,10 @@ main {
     align-items: center;
     min-height: 44px;
     padding: 4px 0;
+  }
+  .social-link {
+    min-height: 44px;
+    min-width: 44px;
   }
   /* コンテンツ内リンクのタップ領域を広げる */
   .content a {
