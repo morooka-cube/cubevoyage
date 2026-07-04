@@ -1,9 +1,12 @@
 ---
 import '../styles/global.css';
+import { env } from 'cloudflare:workers';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../lib/site';
 import faviconUrl from '../assets/logo.svg?url';
+
+const beaconToken = env.PUBLIC_CF_BEACON_TOKEN;
 
 interface Props {
   title: string;
@@ -53,5 +56,11 @@ const ogImageUrl = ogImage ? new URL(ogImage, Astro.url.origin).href : undefined
     <Header currentPath={path} />
     <slot />
     <Footer />
+    <script
+      is:inline
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={`{"token": "${beaconToken}"}`}
+    ></script>
   </body>
 </html>
