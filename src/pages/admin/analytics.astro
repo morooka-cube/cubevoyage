@@ -1,0 +1,226 @@
+---
+import { env } from 'cloudflare:workers';
+
+// ▼ 自前 Web アナリティクスの閲覧ダッシュボード。
+//    Analytics Engine の SQL API をサーバー側で叩いて集計を表示する。
+//    ?key=<ANALYTICS_DASH_KEY> による簡易認証。SSR 専用。
+export const prerender = false;
+
+const DATASET = 'cubevoyage_web_analytics';
+
+const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
+const accountId = (env as Record<string, unknown>).CF_ACCOUNT_ID as string | undefined;
+const apiToken = (env as Record<string, unknown>).CF_API_TOKEN as string | undefined;
+
+const givenKey = Astro.url.searchParams.get('key') ?? '';
+
+// 認証：キー未設定なら 401、キー不一致でも 401。
+const configured = Boolean(dashKey && accountId && apiToken);
+const authorized = configured && givenKey.length > 0 && givenKey === dashKey;
+
+if (!authorized) {
+  Astro.response.status = 401;
+}
+
+type Row = Record<string, string | number>;
+
+async function query(sql: string): Promise<Row[]> {
+  const res = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics_engine/sql`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiToken}`, 'Content-Type': 'text/plain' },
+      body: sql,
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`SQL API ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  }
+  const json = (await res.json()) as { data?: Row[] };
+  return json.data ?? [];
+}
+
+async function scalar(sql: string): Promise<number> {
+  const rows = await query(sql);
+  const v = rows[0] ? Object.values(rows[0])[0] : 0;
+  return Number(v) || 0;
+}
+
+type Section = { data?: Row[]; error?: string };
+async function section(sql: string): Promise<Section> {
+  try {
+    return { data: await query(sql) };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+const win = "timestamp > now() - INTERVAL '30' DAY";
+
+let totals = { d1: 0, d7: 0, d30: 0 };
+let topPaths: Section = {};
+let referrers: Section = {};
+let devices: Section = {};
+let countries: Section = {};
+let daily: Section = {};
+let fatalError: string | null = null;
+
+if (authorized) {
+  try {
+    const [d1, d7, d30, tp, rf, dv, co, dl] = await Promise.all([
+      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE timestamp > now() - INTERVAL '1' DAY`),
+      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE timestamp > now() - INTERVAL '7' DAY`),
+      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE ${win}`),
+      section(`SELECT blob1 AS path, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY path ORDER BY views DESC LIMIT 50`),
+      section(`SELECT blob2 AS referrer, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} AND blob2 != '' GROUP BY referrer ORDER BY views DESC LIMIT 30`),
+      section(`SELECT blob4 AS device, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY device ORDER BY views DESC`),
+      section(`SELECT blob3 AS country, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY country ORDER BY views DESC LIMIT 30`),
+      section(`SELECT toStartOfInterval(timestamp, INTERVAL '1' DAY) AS day, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY day ORDER BY day`),
+    ]);
+    totals = { d1, d7, d30 };
+    topPaths = tp;
+    referrers = rf;
+    devices = dv;
+    countries = co;
+    daily = dl;
+  } catch (e) {
+    fatalError = e instanceof Error ? e.message : String(e);
+  }
+}
+
+const nf = new Intl.NumberFormat('ja-JP');
+const dailyMax =
+  daily.data && daily.data.length
+    ? Math.max(...daily.data.map((r) => Number(r.views) || 0))
+    : 0;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>アナリティクス | Cube Voyage</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; max-width: 920px; margin-inline: auto; line-height: 1.5; }
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.1rem; margin-top: 2.2rem; border-bottom: 1px solid #8884; padding-bottom: .3rem; }
+      .cards { display: flex; gap: 12px; flex-wrap: wrap; margin: 1rem 0; }
+      .card { flex: 1 1 140px; border: 1px solid #8884; border-radius: 10px; padding: 14px 16px; }
+      .card .n { font-size: 1.8rem; font-weight: 800; }
+      .card .l { font-size: .8rem; opacity: .7; }
+      table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+      th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #8883; }
+      td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .bar { display: inline-block; height: 8px; background: #4a86ff; border-radius: 4px; vertical-align: middle; }
+      .err { color: #c00; background: #c001; padding: 10px 12px; border-radius: 8px; font-size: .85rem; white-space: pre-wrap; word-break: break-word; }
+      code { background: #8882; padding: .1em .35em; border-radius: 4px; }
+      .muted { opacity: .65; font-size: .85rem; }
+    </style>
+  </head>
+  <body>
+    <h1>📊 Cube Voyage アナリティクス</h1>
+
+    {!configured && (
+      <div class="err">
+        ダッシュボードが未設定です。次のシークレットを設定してください：
+        <br /><br />
+        <code>wrangler secret put CF_ACCOUNT_ID</code><br />
+        <code>wrangler secret put CF_API_TOKEN</code>（Account Analytics: Read 権限のトークン）<br />
+        <code>wrangler secret put ANALYTICS_DASH_KEY</code>（任意の閲覧用パスワード）
+      </div>
+    )}
+
+    {configured && !authorized && (
+      <p class="err">認証が必要です。<code>?key=&lt;ANALYTICS_DASH_KEY&gt;</code> を付けてアクセスしてください。</p>
+    )}
+
+    {authorized && fatalError && (
+      <div class="err">集計に失敗しました：{fatalError}</div>
+    )}
+
+    {authorized && !fatalError && (
+      <>
+        <p class="muted">過去30日間の集計（サンプリング補正済み・Cookieなし）。</p>
+
+        <div class="cards">
+          <div class="card"><div class="n">{nf.format(totals.d1)}</div><div class="l">直近 24 時間</div></div>
+          <div class="card"><div class="n">{nf.format(totals.d7)}</div><div class="l">直近 7 日間</div></div>
+          <div class="card"><div class="n">{nf.format(totals.d30)}</div><div class="l">直近 30 日間</div></div>
+        </div>
+
+        <h2>日別ページビュー（30日）</h2>
+        {daily.error ? <div class="err">{daily.error}</div> : (
+          <table>
+            <thead><tr><th>日付</th><th class="num">PV</th><th>　</th></tr></thead>
+            <tbody>
+              {(daily.data ?? []).map((r) => (
+                <tr>
+                  <td>{String(r.day).slice(0, 10)}</td>
+                  <td class="num">{nf.format(Number(r.views) || 0)}</td>
+                  <td><span class="bar" style={`width:${dailyMax ? Math.round((Number(r.views) / dailyMax) * 240) : 0}px`}></span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        <h2>人気ページ（30日）</h2>
+        {topPaths.error ? <div class="err">{topPaths.error}</div> : (
+          <table>
+            <thead><tr><th>パス</th><th class="num">PV</th></tr></thead>
+            <tbody>
+              {(topPaths.data ?? []).map((r) => (
+                <tr><td>{String(r.path)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        <h2>リファラ（30日）</h2>
+        {referrers.error ? <div class="err">{referrers.error}</div> : (
+          (referrers.data ?? []).length === 0 ? <p class="muted">外部リファラの記録はまだありません。</p> : (
+            <table>
+              <thead><tr><th>参照元</th><th class="num">PV</th></tr></thead>
+              <tbody>
+                {(referrers.data ?? []).map((r) => (
+                  <tr><td>{String(r.referrer)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          )
+        )}
+
+        <h2>デバイス / 国（30日）</h2>
+        <div class="cards">
+          <div class="card" style="flex-basis:280px">
+            {devices.error ? <div class="err">{devices.error}</div> : (
+              <table>
+                <thead><tr><th>デバイス</th><th class="num">PV</th></tr></thead>
+                <tbody>
+                  {(devices.data ?? []).map((r) => (
+                    <tr><td>{String(r.device)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+          <div class="card" style="flex-basis:280px">
+            {countries.error ? <div class="err">{countries.error}</div> : (
+              <table>
+                <thead><tr><th>国</th><th class="num">PV</th></tr></thead>
+                <tbody>
+                  {(countries.data ?? []).map((r) => (
+                    <tr><td>{String(r.country)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </>
+    )}
+  </body>
+</html>

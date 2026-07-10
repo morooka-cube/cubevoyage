@@ -2,5 +2,10 @@ name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
-[vars]
-PUBLIC_CF_BEACON_TOKEN = "5d39d5074f0a4aa689b6208de9ed9e43"
+# 自前 Web アナリティクス（Cloudflare Workers Analytics Engine）
+# 計測データの書き込み先データセット。初回書き込み時に自動作成される。
+# 読み出し（ダッシュボード）に使う CF_ACCOUNT_ID / CF_API_TOKEN /
+# ANALYTICS_DASH_KEY は `wrangler secret put` でシークレットとして設定する。
+[[analytics_engine_datasets]]
+binding = "WEB_ANALYTICS"
+dataset = "cubevoyage_web_analytics"

@@ -82,6 +82,42 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 
 ---
 
+## Web アナリティクス（自前計測）
+
+`cloudflareinsights.com` の JS ビーコンは広告ブロッカーにブロックされやすいため、
+**ファーストパーティ（自ドメイン）での計測**に置き換えています。第三者ゼロ・Cookie なし・
+Cloudflare Workers Analytics Engine の無料枠で完結します。
+
+| 役割 | 実体 |
+|---|---|
+| 送信 | `BaseLayout.astro` のインラインビーコン → `navigator.sendBeacon('/api/hit', …)` |
+| 収集 | `src/pages/api/hit.ts`（SSR）→ `WEB_ANALYTICS.writeDataPoint(…)` |
+| 保存先 | Analytics Engine データセット `cubevoyage_web_analytics`（`wrangler.toml`） |
+| 閲覧 | `src/pages/admin/analytics.astro`（SSR・要キー）→ Analytics Engine SQL API |
+
+記録項目：パス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅。
+IP アドレスやユーザー識別子は保存しません。
+
+### ダッシュボードの初期設定
+
+集計の読み出しには Cloudflare の API トークンが必要です（書き込みはバインディングのみで動作）。
+
+```bash
+# 権限「Account Analytics: Read」のトークンを作成して設定
+wrangler secret put CF_ACCOUNT_ID       # Cloudflare のアカウント ID
+wrangler secret put CF_API_TOKEN        # Account Analytics: Read 権限のトークン
+wrangler secret put ANALYTICS_DASH_KEY  # 任意の閲覧用パスワード
+```
+
+設定後、`https://cubevoyage.net/admin/analytics/?key=<ANALYTICS_DASH_KEY>` で過去30日の集計を表示します。
+データセットは初回のページビュー記録時に自動作成されます（反映まで数分かかる場合あり）。
+
+> 補足：`sum(_sample_interval)` を使うため、サンプリングが効いても実数に補正されます。
+> Grafana や `curl` で SQL API を直接叩くことも可能です。
+
+---
+
 ## 動作確認のポイント
 
 - 主要ページ・階層ナビ・パンくず・子ページ一覧が表示される
+- ページ閲覧時に `/api/hit` へビーコンが飛ぶ（DevTools の Network で `hit` が 204）
