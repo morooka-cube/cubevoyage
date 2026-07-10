@@ -85,35 +85,41 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 ## Web アナリティクス（自前計測）
 
 `cloudflareinsights.com` の JS ビーコンは広告ブロッカーにブロックされやすいため、
-**ファーストパーティ（自ドメイン）での計測**に置き換えています。第三者ゼロ・Cookie なし・
-Cloudflare Workers Analytics Engine の無料枠で完結します。
+**ファーストパーティ（自ドメイン）での計測**に置き換えています。第三者スクリプトゼロ・Cookie なし。
 
 | 役割 | 実体 |
 |---|---|
 | 送信 | `BaseLayout.astro` のインラインビーコン → `navigator.sendBeacon('/api/hit', …)` |
-| 収集 | `src/pages/api/hit.ts`（SSR）→ `WEB_ANALYTICS.writeDataPoint(…)` |
-| 保存先 | Analytics Engine データセット `cubevoyage_web_analytics`（`wrangler.toml`） |
-| 閲覧 | `src/pages/admin/analytics.astro`（SSR・要キー）→ Analytics Engine SQL API |
+| 収集 | `src/pages/api/hit.ts`（SSR）。D1 があれば記録、無ければ Workers Logs に出力 |
+| 保存先 | D1 データベース `cubevoyage_analytics`（任意・無料枠） |
+| 閲覧 | `src/pages/admin/analytics.astro`（SSR・要キー）→ D1 を直接クエリ |
 
 記録項目：パス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅。
 IP アドレスやユーザー識別子は保存しません。
 
-### ダッシュボードの初期設定
+> 当初 Cloudflare Workers Analytics Engine を使う構成にしていたが、
+> AE はアカウント側での有効化（有料 Workers プラン）が必要でデプロイが `10089
+> no_access_to_analytics_engine` で失敗するため、無料枠で完結する D1 方式に変更した。
 
-集計の読み出しには Cloudflare の API トークンが必要です（書き込みはバインディングのみで動作）。
+### 既定（追加設定なし）
+
+デプロイするだけで計測は動作し、イベントは Cloudflare の **Workers Logs** に
+`{"t":"pv","path":…}` 形式で出力される（ダッシュボード → Workers & Pages → 対象 Worker → Logs）。
+
+### 集計ダッシュボードを有効化する（任意・無料）
+
+D1（無料枠）を有効化すると `/api/hit` は自動で D1 に記録し、集計ダッシュボードが使える。
 
 ```bash
-# 権限「Account Analytics: Read」のトークンを作成して設定
-wrangler secret put CF_ACCOUNT_ID       # Cloudflare のアカウント ID
-wrangler secret put CF_API_TOKEN        # Account Analytics: Read 権限のトークン
-wrangler secret put ANALYTICS_DASH_KEY  # 任意の閲覧用パスワード
+npx wrangler d1 create cubevoyage_analytics
+# 出力された database_id を wrangler.toml の [[d1_databases]] に貼り、コメントを外す
+npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+npx wrangler secret put ANALYTICS_DASH_KEY   # 任意の閲覧用パスワード
+npm run deploy
 ```
 
-設定後、`https://cubevoyage.net/admin/analytics/?key=<ANALYTICS_DASH_KEY>` で過去30日の集計を表示します。
-データセットは初回のページビュー記録時に自動作成されます（反映まで数分かかる場合あり）。
-
-> 補足：`sum(_sample_interval)` を使うため、サンプリングが効いても実数に補正されます。
-> Grafana や `curl` で SQL API を直接叩くことも可能です。
+設定後、`https://cubevoyage.net/admin/analytics/?key=<ANALYTICS_DASH_KEY>` で過去30日の集計を表示する。
+API トークンは不要（Worker が D1 バインディングを直接クエリする）。
 
 ---
 

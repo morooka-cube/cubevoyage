@@ -3,8 +3,18 @@ import { env } from 'cloudflare:workers';
 
 // ▼ 自前 Web アナリティクスの収集エンドポイント。
 //    ファーストパーティ（自ドメイン）で受けるため広告ブロッカーに強い。
-//    このルートのみ SSR（オンデマンド）で Worker 上で動作する。
+//    D1（ANALYTICS_DB バインディング）があればそこに記録し、
+//    無ければ Workers Logs に出力する（追加リソース不要）。SSR 専用。
 export const prerender = false;
+
+// D1 の最小インターフェース（バインディング未設定でも型エラーにしないため自前定義）
+interface D1Prepared {
+  bind(...values: unknown[]): D1Prepared;
+  run(): Promise<unknown>;
+}
+interface D1Like {
+  prepare(sql: string): D1Prepared;
+}
 
 interface Beacon {
   p?: unknown; // pathname
@@ -49,15 +59,20 @@ export const POST: APIRoute = async ({ request }) => {
     const country = (request.headers.get('cf-ipcountry') || 'XX').slice(0, 8);
     const ua = request.headers.get('user-agent') || '';
     const device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop';
-    const width = typeof data.w === 'number' && isFinite(data.w) ? data.w : 0;
+    const width = typeof data.w === 'number' && isFinite(data.w) ? Math.round(data.w) : 0;
 
-    // Analytics Engine へ 1 ページビューを記録。
-    // 集計時は sum(_sample_interval) を使うとサンプリング補正済みの実数になる。
-    env.WEB_ANALYTICS?.writeDataPoint({
-      blobs: [path, referrer, country, device],
-      doubles: [width],
-      indexes: [path.slice(0, 96)], // サンプリングキー（ページ単位）
-    });
+    const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
+    if (db) {
+      await db
+        .prepare(
+          'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',
+        )
+        .bind(Math.floor(Date.now() / 1000), path, referrer, country, device, width)
+        .run();
+    } else {
+      // D1 未設定時は Workers Logs に構造化ログとして出力（後から集計・Logpush 可能）
+      console.log(JSON.stringify({ t: 'pv', path, referrer, country, device, width }));
+    }
   } catch {
     /* 計測失敗はユーザー体験に影響させない */
   }
@@ -66,5 +81,5 @@ export const POST: APIRoute = async ({ request }) => {
   return new Response(null, { status: 204 });
 };
 
-// sendBeacon が使えない環境からの GET フォールバック等は受け付けない。
+// sendBeacon 以外の手動 GET は受け付けない。
 export const GET: APIRoute = () => new Response(null, { status: 405 });

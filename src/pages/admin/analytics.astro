@@ -2,60 +2,42 @@
 import { env } from 'cloudflare:workers';
 
 // ▼ 自前 Web アナリティクスの閲覧ダッシュボード。
-//    Analytics Engine の SQL API をサーバー側で叩いて集計を表示する。
+//    D1（ANALYTICS_DB）を直接クエリして集計を表示する。API トークン不要。
 //    ?key=<ANALYTICS_DASH_KEY> による簡易認証。SSR 専用。
 export const prerender = false;
 
-const DATASET = 'cubevoyage_web_analytics';
+type Row = Record<string, string | number>;
+interface D1Prepared {
+  bind(...values: unknown[]): D1Prepared;
+  all<T = Row>(): Promise<{ results: T[] }>;
+}
+interface D1Like {
+  prepare(sql: string): D1Prepared;
+}
 
+const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
 const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
-const accountId = (env as Record<string, unknown>).CF_ACCOUNT_ID as string | undefined;
-const apiToken = (env as Record<string, unknown>).CF_API_TOKEN as string | undefined;
-
 const givenKey = Astro.url.searchParams.get('key') ?? '';
 
-// 認証：キー未設定なら 401、キー不一致でも 401。
-const configured = Boolean(dashKey && accountId && apiToken);
-const authorized = configured && givenKey.length > 0 && givenKey === dashKey;
+const configured = Boolean(db);
+const authorized = configured && Boolean(dashKey) && givenKey.length > 0 && givenKey === dashKey;
 
 if (!authorized) {
   Astro.response.status = 401;
 }
 
-type Row = Record<string, string | number>;
-
-async function query(sql: string): Promise<Row[]> {
-  const res = await fetch(
-    `https://api.cloudflare.com/client/v4/accounts/${accountId}/analytics_engine/sql`,
-    {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiToken}`, 'Content-Type': 'text/plain' },
-      body: sql,
-    },
-  );
-  if (!res.ok) {
-    throw new Error(`SQL API ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  }
-  const json = (await res.json()) as { data?: Row[] };
-  return json.data ?? [];
-}
-
-async function scalar(sql: string): Promise<number> {
-  const rows = await query(sql);
-  const v = rows[0] ? Object.values(rows[0])[0] : 0;
-  return Number(v) || 0;
-}
-
 type Section = { data?: Row[]; error?: string };
 async function section(sql: string): Promise<Section> {
   try {
-    return { data: await query(sql) };
+    const res = await db!.prepare(sql).all<Row>();
+    return { data: res.results ?? [] };
   } catch (e) {
     return { error: e instanceof Error ? e.message : String(e) };
   }
 }
 
-const win = "timestamp > now() - INTERVAL '30' DAY";
+// SQLite（D1）。ts は unix 秒。unixepoch() で現在時刻の秒を得る。
+const w30 = 'ts > unixepoch() - 2592000';
 
 let totals = { d1: 0, d7: 0, d30: 0 };
 let topPaths: Section = {};
@@ -66,33 +48,35 @@ let daily: Section = {};
 let fatalError: string | null = null;
 
 if (authorized) {
-  try {
-    const [d1, d7, d30, tp, rf, dv, co, dl] = await Promise.all([
-      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE timestamp > now() - INTERVAL '1' DAY`),
-      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE timestamp > now() - INTERVAL '7' DAY`),
-      scalar(`SELECT sum(_sample_interval) AS v FROM ${DATASET} WHERE ${win}`),
-      section(`SELECT blob1 AS path, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY path ORDER BY views DESC LIMIT 50`),
-      section(`SELECT blob2 AS referrer, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} AND blob2 != '' GROUP BY referrer ORDER BY views DESC LIMIT 30`),
-      section(`SELECT blob4 AS device, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY device ORDER BY views DESC`),
-      section(`SELECT blob3 AS country, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY country ORDER BY views DESC LIMIT 30`),
-      section(`SELECT toStartOfInterval(timestamp, INTERVAL '1' DAY) AS day, sum(_sample_interval) AS views FROM ${DATASET} WHERE ${win} GROUP BY day ORDER BY day`),
+  const t = await section(
+    `SELECT
+       SUM(CASE WHEN ts > unixepoch() - 86400 THEN 1 ELSE 0 END) AS d1,
+       SUM(CASE WHEN ts > unixepoch() - 604800 THEN 1 ELSE 0 END) AS d7,
+       SUM(CASE WHEN ts > unixepoch() - 2592000 THEN 1 ELSE 0 END) AS d30
+     FROM hits`,
+  );
+  if (t.error) {
+    fatalError = t.error;
+  } else {
+    const r = t.data?.[0];
+    totals = {
+      d1: Number(r?.d1) || 0,
+      d7: Number(r?.d7) || 0,
+      d30: Number(r?.d30) || 0,
+    };
+    [topPaths, referrers, devices, countries, daily] = await Promise.all([
+      section(`SELECT path, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY path ORDER BY views DESC LIMIT 50`),
+      section(`SELECT referrer, COUNT(*) AS views FROM hits WHERE ${w30} AND referrer != '' GROUP BY referrer ORDER BY views DESC LIMIT 30`),
+      section(`SELECT device, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY device ORDER BY views DESC`),
+      section(`SELECT country, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY country ORDER BY views DESC LIMIT 30`),
+      section(`SELECT date(ts, 'unixepoch') AS day, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY day ORDER BY day`),
     ]);
-    totals = { d1, d7, d30 };
-    topPaths = tp;
-    referrers = rf;
-    devices = dv;
-    countries = co;
-    daily = dl;
-  } catch (e) {
-    fatalError = e instanceof Error ? e.message : String(e);
   }
 }
 
 const nf = new Intl.NumberFormat('ja-JP');
 const dailyMax =
-  daily.data && daily.data.length
-    ? Math.max(...daily.data.map((r) => Number(r.views) || 0))
-    : 0;
+  daily.data && daily.data.length ? Math.max(...daily.data.map((r) => Number(r.views) || 0)) : 0;
 ---
 
 <!doctype html>
@@ -116,6 +100,7 @@ const dailyMax =
       td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
       .bar { display: inline-block; height: 8px; background: #4a86ff; border-radius: 4px; vertical-align: middle; }
       .err { color: #c00; background: #c001; padding: 10px 12px; border-radius: 8px; font-size: .85rem; white-space: pre-wrap; word-break: break-word; }
+      pre { background: #8882; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: .82rem; }
       code { background: #8882; padding: .1em .35em; border-radius: 4px; }
       .muted { opacity: .65; font-size: .85rem; }
     </style>
@@ -124,26 +109,30 @@ const dailyMax =
     <h1>📊 Cube Voyage アナリティクス</h1>
 
     {!configured && (
-      <div class="err">
-        ダッシュボードが未設定です。次のシークレットを設定してください：
-        <br /><br />
-        <code>wrangler secret put CF_ACCOUNT_ID</code><br />
-        <code>wrangler secret put CF_API_TOKEN</code>（Account Analytics: Read 権限のトークン）<br />
-        <code>wrangler secret put ANALYTICS_DASH_KEY</code>（任意の閲覧用パスワード）
+      <div>
+        <p class="err">ダッシュボード用の D1 データベースが未設定です。</p>
+        <p>計測自体は動作しており、イベントは Cloudflare の <strong>Workers Logs</strong> に出力されています。
+          集計ダッシュボードを使うには、無料枠の D1 を有効化してください：</p>
+        <pre>npx wrangler d1 create cubevoyage_analytics
+# 出力された database_id を wrangler.toml に貼り、[[d1_databases]] のコメントを外す
+npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+npx wrangler secret put ANALYTICS_DASH_KEY   # 閲覧用パスワード
+npm run deploy</pre>
       </div>
     )}
 
     {configured && !authorized && (
-      <p class="err">認証が必要です。<code>?key=&lt;ANALYTICS_DASH_KEY&gt;</code> を付けてアクセスしてください。</p>
+      <p class="err">認証が必要です。<code>?key=&lt;ANALYTICS_DASH_KEY&gt;</code> を付けてアクセスしてください。
+        （<code>wrangler secret put ANALYTICS_DASH_KEY</code> 未設定の場合はまず設定してください）</p>
     )}
 
     {authorized && fatalError && (
-      <div class="err">集計に失敗しました：{fatalError}</div>
+      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（schema.sql を実行してください）。</div>
     )}
 
     {authorized && !fatalError && (
       <>
-        <p class="muted">過去30日間の集計（サンプリング補正済み・Cookieなし）。</p>
+        <p class="muted">過去30日間の集計（Cookieなし・IP/識別子は保存しない）。</p>
 
         <div class="cards">
           <div class="card"><div class="n">{nf.format(totals.d1)}</div><div class="l">直近 24 時間</div></div>
