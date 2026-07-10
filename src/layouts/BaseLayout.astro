@@ -54,21 +54,8 @@ const ogImageUrl = ogImage ? new URL(ogImage, Astro.url.origin).href : undefined
     <slot />
     <Footer />
     <!-- 自前 Web アナリティクス（ファーストパーティ・Cookie/追跡なし） -->
-    <script is:inline>
-      (function () {
-        try {
-          var payload = JSON.stringify({
-            p: location.pathname,
-            r: document.referrer || '',
-            w: (window.screen && screen.width) || 0,
-          });
-          if (navigator.sendBeacon) {
-            navigator.sendBeacon('/api/hit', payload);
-          } else {
-            fetch('/api/hit', { method: 'POST', body: payload, keepalive: true });
-          }
-        } catch (e) {}
-      })();
+    <script>
+      import '../scripts/analytics.ts';
     </script>
   </body>
 </html>
