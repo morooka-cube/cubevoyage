@@ -2,5 +2,19 @@ name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
-[vars]
-PUBLIC_CF_BEACON_TOKEN = "5d39d5074f0a4aa689b6208de9ed9e43"
+# Workers Logs を有効化。D1 バインドが無い環境で /api/hit が出力する計測イベントの
+# フォールバック保存先。head_sampling_rate = 1 で全リクエストのログを記録する。
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+# 自前 Web アナリティクス（ファーストパーティ計測）の保存先 D1（無料枠）。
+# /api/hit はここに記録し、/admin/analytics ダッシュボードが集計を表示する。
+# 別アカウントへデプロイする際は同名 DB を作成し database_id を差し替える:
+#   npx wrangler d1 create cubevoyage_analytics
+# スキーマ適用: npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+# 閲覧キー設定: npx wrangler secret put ANALYTICS_DASH_KEY
+[[d1_databases]]
+binding = "ANALYTICS_DB"
+database_name = "cubevoyage_analytics"
+database_id = "970a406a-beaf-4f46-9a4f-de693d69eb5b"

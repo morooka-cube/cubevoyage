@@ -1,0 +1,245 @@
+---
+import { env } from 'cloudflare:workers';
+
+// ▼ 自前 Web アナリティクスの閲覧ダッシュボード。
+//    D1（ANALYTICS_DB）を直接クエリして集計を表示する。API トークン不要。
+//    HTTP Basic 認証（Authorization ヘッダ）で ANALYTICS_DASH_KEY を照合する。
+//    キーを URL に載せない＝ Workers Logs・ブラウザ履歴・Referer に漏らさない。SSR 専用。
+export const prerender = false;
+
+type Row = Record<string, string | number>;
+interface D1Prepared {
+  bind(...values: unknown[]): D1Prepared;
+  all<T = Row>(): Promise<{ results: T[] }>;
+}
+interface D1Like {
+  prepare(sql: string): D1Prepared;
+}
+
+/** 早期 return せずに比較するタイミングセーフな文字列一致判定 */
+function safeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const ab = enc.encode(a);
+  const bb = enc.encode(b);
+  let diff = ab.length ^ bb.length; // 長さ差もフラグに畳み込む
+  for (let i = 0; i < ab.length; i++) diff |= ab[i] ^ (bb[i] ?? 0);
+  return diff === 0;
+}
+
+/** `Authorization: Basic <base64(user:pass)>` から pass 部分を取り出す（user は任意） */
+function basicAuthKey(header: string | null): string {
+  const m = header ? /^Basic\s+(.+)$/i.exec(header) : null;
+  if (!m) return '';
+  try {
+    const decoded = atob(m[1]);
+    const i = decoded.indexOf(':');
+    return i === -1 ? decoded : decoded.slice(i + 1);
+  } catch {
+    return '';
+  }
+}
+
+const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
+const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
+const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
+
+const configured = Boolean(db);
+const authorized =
+  configured && Boolean(dashKey) && givenKey.length > 0 && safeEqual(givenKey, dashKey!);
+
+if (!authorized) {
+  Astro.response.status = 401;
+  // D1 設定済みで未認証のときだけブラウザにネイティブ認証プロンプトを出す。
+  if (configured) {
+    Astro.response.headers.set('WWW-Authenticate', 'Basic realm="Cube Voyage Analytics"');
+  }
+}
+
+type Section = { data?: Row[]; error?: string };
+async function section(sql: string): Promise<Section> {
+  try {
+    const res = await db!.prepare(sql).all<Row>();
+    return { data: res.results ?? [] };
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+// SQLite（D1）。ts は unix 秒。unixepoch() で現在時刻の秒を得る。
+const w30 = 'ts > unixepoch() - 2592000';
+
+let totals = { d1: 0, d7: 0, d30: 0 };
+let topPaths: Section = {};
+let referrers: Section = {};
+let devices: Section = {};
+let countries: Section = {};
+let daily: Section = {};
+let fatalError: string | null = null;
+
+if (authorized) {
+  const t = await section(
+    `SELECT
+       SUM(CASE WHEN ts > unixepoch() - 86400 THEN 1 ELSE 0 END) AS d1,
+       SUM(CASE WHEN ts > unixepoch() - 604800 THEN 1 ELSE 0 END) AS d7,
+       SUM(CASE WHEN ts > unixepoch() - 2592000 THEN 1 ELSE 0 END) AS d30
+     FROM hits`,
+  );
+  if (t.error) {
+    fatalError = t.error;
+  } else {
+    const r = t.data?.[0];
+    totals = {
+      d1: Number(r?.d1) || 0,
+      d7: Number(r?.d7) || 0,
+      d30: Number(r?.d30) || 0,
+    };
+    [topPaths, referrers, devices, countries, daily] = await Promise.all([
+      section(`SELECT path, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY path ORDER BY views DESC LIMIT 50`),
+      section(`SELECT referrer, COUNT(*) AS views FROM hits WHERE ${w30} AND referrer != '' GROUP BY referrer ORDER BY views DESC LIMIT 30`),
+      section(`SELECT device, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY device ORDER BY views DESC`),
+      section(`SELECT country, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY country ORDER BY views DESC LIMIT 30`),
+      section(`SELECT date(ts, 'unixepoch') AS day, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY day ORDER BY day`),
+    ]);
+  }
+}
+
+const nf = new Intl.NumberFormat('ja-JP');
+const dailyMax =
+  daily.data && daily.data.length ? Math.max(...daily.data.map((r) => Number(r.views) || 0)) : 0;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>アナリティクス | Cube Voyage</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { font-family: system-ui, sans-serif; margin: 0; padding: 24px; max-width: 920px; margin-inline: auto; line-height: 1.5; }
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.1rem; margin-top: 2.2rem; border-bottom: 1px solid #8884; padding-bottom: .3rem; }
+      .cards { display: flex; gap: 12px; flex-wrap: wrap; margin: 1rem 0; }
+      .card { flex: 1 1 140px; border: 1px solid #8884; border-radius: 10px; padding: 14px 16px; }
+      .card .n { font-size: 1.8rem; font-weight: 800; }
+      .card .l { font-size: .8rem; opacity: .7; }
+      table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+      th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #8883; }
+      td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .bar { display: inline-block; height: 8px; background: #4a86ff; border-radius: 4px; vertical-align: middle; }
+      .err { color: #c00; background: #c001; padding: 10px 12px; border-radius: 8px; font-size: .85rem; white-space: pre-wrap; word-break: break-word; }
+      pre { background: #8882; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: .82rem; }
+      code { background: #8882; padding: .1em .35em; border-radius: 4px; }
+      .muted { opacity: .65; font-size: .85rem; }
+    </style>
+  </head>
+  <body>
+    <h1>📊 Cube Voyage アナリティクス</h1>
+
+    {!configured && (
+      <div>
+        <p class="err">ダッシュボード用の D1 データベースが未設定です。</p>
+        <p>計測自体は動作しており、イベントは Cloudflare の <strong>Workers Logs</strong> に出力されています。
+          集計ダッシュボードを使うには、無料枠の D1 を有効化してください：</p>
+        <pre>npx wrangler d1 create cubevoyage_analytics
+# 出力された database_id を wrangler.toml に貼り、[[d1_databases]] のコメントを外す
+npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+npx wrangler secret put ANALYTICS_DASH_KEY   # 閲覧用パスワード
+npm run deploy</pre>
+      </div>
+    )}
+
+    {configured && !authorized && (
+      <p class="err">認証が必要です。ブラウザの認証ダイアログで、ユーザー名は任意・パスワードに
+        <code>ANALYTICS_DASH_KEY</code> を入力してください。
+        （<code>wrangler secret put ANALYTICS_DASH_KEY</code> 未設定の場合はまず設定してください）</p>
+    )}
+
+    {authorized && fatalError && (
+      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（schema.sql を実行してください）。</div>
+    )}
+
+    {authorized && !fatalError && (
+      <>
+        <p class="muted">過去30日間の集計（Cookieなし・IP/識別子は保存しない）。</p>
+
+        <div class="cards">
+          <div class="card"><div class="n">{nf.format(totals.d1)}</div><div class="l">直近 24 時間</div></div>
+          <div class="card"><div class="n">{nf.format(totals.d7)}</div><div class="l">直近 7 日間</div></div>
+          <div class="card"><div class="n">{nf.format(totals.d30)}</div><div class="l">直近 30 日間</div></div>
+        </div>
+
+        <h2>日別ページビュー（30日）</h2>
+        {daily.error ? <div class="err">{daily.error}</div> : (
+          <table>
+            <thead><tr><th>日付</th><th class="num">PV</th><th>　</th></tr></thead>
+            <tbody>
+              {(daily.data ?? []).map((r) => (
+                <tr>
+                  <td>{String(r.day).slice(0, 10)}</td>
+                  <td class="num">{nf.format(Number(r.views) || 0)}</td>
+                  <td><span class="bar" style={`width:${dailyMax ? Math.round((Number(r.views) / dailyMax) * 240) : 0}px`}></span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        <h2>人気ページ（30日）</h2>
+        {topPaths.error ? <div class="err">{topPaths.error}</div> : (
+          <table>
+            <thead><tr><th>パス</th><th class="num">PV</th></tr></thead>
+            <tbody>
+              {(topPaths.data ?? []).map((r) => (
+                <tr><td>{String(r.path)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        <h2>リファラ（30日）</h2>
+        {referrers.error ? <div class="err">{referrers.error}</div> : (
+          (referrers.data ?? []).length === 0 ? <p class="muted">外部リファラの記録はまだありません。</p> : (
+            <table>
+              <thead><tr><th>参照元</th><th class="num">PV</th></tr></thead>
+              <tbody>
+                {(referrers.data ?? []).map((r) => (
+                  <tr><td>{String(r.referrer)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          )
+        )}
+
+        <h2>デバイス / 国（30日）</h2>
+        <div class="cards">
+          <div class="card" style="flex-basis:280px">
+            {devices.error ? <div class="err">{devices.error}</div> : (
+              <table>
+                <thead><tr><th>デバイス</th><th class="num">PV</th></tr></thead>
+                <tbody>
+                  {(devices.data ?? []).map((r) => (
+                    <tr><td>{String(r.device)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+          <div class="card" style="flex-basis:280px">
+            {countries.error ? <div class="err">{countries.error}</div> : (
+              <table>
+                <thead><tr><th>国</th><th class="num">PV</th></tr></thead>
+                <tbody>
+                  {(countries.data ?? []).map((r) => (
+                    <tr><td>{String(r.country)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+      </>
+    )}
+  </body>
+</html>

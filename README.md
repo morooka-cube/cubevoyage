@@ -82,6 +82,47 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 
 ---
 
+## Web アナリティクス（自前計測）
+
+ファーストパーティ（自ドメイン）で計測します。第三者スクリプトゼロ・Cookie なし。
+この方式を選んだ背景・検討した代替案は [ADR 0001](docs/adr/0001-web-analytics-first-party.md) を参照。
+
+| 役割 | 実体 |
+|---|---|
+| 送信 | `BaseLayout.astro` から `src/scripts/analytics.ts` を読み込み → `navigator.sendBeacon('/api/hit', …)` |
+| 収集 | `src/pages/api/hit.ts`（SSR）。D1 に記録（D1 バインドが無い環境では Workers Logs に出力） |
+| 保存先 | D1 データベース `cubevoyage_analytics`（`wrangler.toml` でバインド済み・無料枠） |
+| 閲覧 | `src/pages/admin/analytics.astro`（SSR・Basic 認証）→ D1 を直接クエリ |
+
+記録項目：パス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅。
+IP アドレスやユーザー識別子は保存しません。
+
+### ダッシュボードの閲覧
+
+`https://cubevoyage.net/admin/analytics/` にアクセスすると Basic 認証を求められる。
+ユーザー名は任意、パスワードに `ANALYTICS_DASH_KEY`（下記で設定した値）を入力する。
+キーは `Authorization` ヘッダで送られ URL には載らないため、ログ・ブラウザ履歴・Referer に漏れない。
+API トークンは不要（Worker が D1 バインディングを直接クエリする）。
+
+### セットアップ（別アカウントへデプロイする場合）
+
+D1 バインディングは `wrangler.toml` に設定済み。別の Cloudflare アカウントへデプロイする際は、
+同名の D1 を作成して `database_id` を差し替える：
+
+```bash
+npx wrangler d1 create cubevoyage_analytics
+# 出力された database_id を wrangler.toml の [[d1_databases]] に反映
+npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+npx wrangler secret put ANALYTICS_DASH_KEY   # ダッシュボード閲覧用パスワード
+npm run deploy
+```
+
+D1 バインドが無い環境では `/api/hit` は計測イベントを Cloudflare の **Workers Logs** に
+`{"t":"pv","path":…}` 形式で出力する（ダッシュボード → Workers & Pages → 対象 Worker → Logs）。
+
+---
+
 ## 動作確認のポイント
 
 - 主要ページ・階層ナビ・パンくず・子ページ一覧が表示される
+- ページ閲覧時に `/api/hit` へビーコンが飛ぶ（DevTools の Network で `hit` が 204）
