@@ -13,6 +13,17 @@ npm run deploy     # ビルド＋Cloudflare Workers デプロイ
 
 テスト・lint コマンドは未設定。
 
+## 開発ワークフロー
+
+### プッシュ前のコードレビュー（必須）
+
+**`git push` する前に、必ずサブエージェント（Task/Agent tool）でコードレビューを実施する。**
+
+- 変更を commit したら、push の前に Agent tool でサブエージェントを起動し、その差分（`git diff`）をレビューさせる
+- レビュー観点：バグ・不具合、可読性、このリポジトリの規約（上記 Architecture のルール、とくにコンテンツ配置と画像管理）への準拠
+- サブエージェントが指摘した問題は、push 前に修正する（対応不要と判断した場合はその理由を明示する）
+- レビューと必要な修正が完了してから、はじめて `git push` する
+
 ## Architecture
 
 **Cube Voyage** — スピードキューブ（ルービックキューブ）情報サイト。Astro 7 + Cloudflare Workers で構成。
