@@ -1,8 +1,8 @@
-# ADR 0002: D1 の型付けを生成型へ、スキーマ管理を wrangler マイグレーションへ
+# ADR 0003: D1 の型付けを生成型へ、スキーマ管理を wrangler マイグレーションへ
 
 - ステータス: Accepted
 - 日付: 2026-07-11
-- 関連: ADR 0001
+- 関連: ADR 0001, ADR 0002
 
 ## コンテキスト
 
@@ -32,9 +32,9 @@
 ## 決定
 
 - **型付け**: 手書きの `D1Like` / `D1Prepared` を削除し、`wrangler types` が生成する `D1Database` 型を使う。
-  `env.ANALYTICS_DB` は `D1Database | undefined` として受ける（バインディング未設定の環境では実行時に
-  `undefined` になりうるため、`if (db)` の分岐は維持する）。シークレット `ANALYTICS_DASH_KEY` は
-  `wrangler.toml` に現れず生成型に含まれないため、その 1 箇所のみキャストを残す。
+  ADR 0002 の決定によりバインディングは常に存在する前提のため、`env.ANALYTICS_DB` はそのまま `D1Database`
+  として受ける。シークレット `ANALYTICS_DASH_KEY` は `wrangler.toml` に現れず生成型に含まれないため、
+  その 1 箇所のみキャストを残す。
 - **スキーマ管理**: `schema.sql` を廃し、`migrations/0001_create_hits.sql` へ移す。
   `wrangler.toml` の D1 エントリに `migrations_dir = "migrations"` を明示する。
   適用は `wrangler d1 migrations apply cubevoyage_analytics --remote`。適用履歴は D1 内の

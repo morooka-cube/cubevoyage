@@ -39,28 +39,22 @@ function basicAuthKey(header: string | null): string {
   }
 }
 
-// バインディング未設定の環境では実行時に undefined になりうる
-const db: D1Database | undefined = env.ANALYTICS_DB;
+const db = env.ANALYTICS_DB;
 // シークレットは wrangler.toml に現れないため生成型に含まれない。ここでのみキャストする
 const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
 const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
 
-const configured = Boolean(db);
-const authorized =
-  configured && Boolean(dashKey) && givenKey.length > 0 && safeEqual(givenKey, dashKey!);
+const authorized = Boolean(dashKey) && givenKey.length > 0 && safeEqual(givenKey, dashKey!);
 
 if (!authorized) {
   Astro.response.status = 401;
-  // D1 設定済みで未認証のときだけブラウザにネイティブ認証プロンプトを出す。
-  if (configured) {
-    Astro.response.headers.set('WWW-Authenticate', 'Basic realm="Cube Voyage Analytics"');
-  }
+  Astro.response.headers.set('WWW-Authenticate', 'Basic realm="Cube Voyage Analytics"');
 }
 
 type Section = { data?: Row[]; error?: string };
 async function section(sql: string): Promise<Section> {
   try {
-    const res = await db!.prepare(sql).all<Row>();
+    const res = await db.prepare(sql).all<Row>();
     return { data: res.results ?? [] };
   } catch (e) {
     return { error: e instanceof Error ? e.message : String(e) };
@@ -139,20 +133,7 @@ const dailyMax =
   <body>
     <h1>📊 Cube Voyage アナリティクス</h1>
 
-    {!configured && (
-      <div>
-        <p class="err">ダッシュボード用の D1 データベースが未設定です。</p>
-        <p>計測自体は動作しており、イベントは Cloudflare の <strong>Workers Logs</strong> に出力されています。
-          集計ダッシュボードを使うには、無料枠の D1 を有効化してください：</p>
-        <pre>npx wrangler d1 create cubevoyage_analytics
-# 出力された database_id を wrangler.toml の [[d1_databases]] に反映
-npx wrangler d1 migrations apply cubevoyage_analytics --remote
-npx wrangler secret put ANALYTICS_DASH_KEY   # 閲覧用パスワード
-npm run deploy</pre>
-      </div>
-    )}
-
-    {configured && !authorized && (
+    {!authorized && (
       <p class="err">認証が必要です。ブラウザの認証ダイアログで、ユーザー名は任意・パスワードに
         <code>ANALYTICS_DASH_KEY</code> を入力してください。
         （<code>wrangler secret put ANALYTICS_DASH_KEY</code> 未設定の場合はまず設定してください）</p>

@@ -2,8 +2,7 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 
 // ▼ 自前 Web アナリティクスの収集エンドポイント。SSR 専用。
-//    D1（ANALYTICS_DB バインディング）があればそこに記録し、
-//    無ければ Workers Logs に出力する。
+//    D1（ANALYTICS_DB バインディング）に記録する。
 export const prerender = false;
 
 interface Beacon {
@@ -51,19 +50,13 @@ export const POST: APIRoute = async ({ request }) => {
     const device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop';
     const width = typeof data.w === 'number' && isFinite(data.w) ? Math.round(data.w) : 0;
 
-    // バインディング未設定の環境では実行時に undefined になりうる
-    const db: D1Database | undefined = env.ANALYTICS_DB;
-    if (db) {
-      await db
-        .prepare(
-          'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',
-        )
-        .bind(Math.floor(Date.now() / 1000), path, referrer, country, device, width)
-        .run();
-    } else {
-      // D1 未設定時は Workers Logs に構造化ログとして出力（後から集計・Logpush 可能）
-      console.log(JSON.stringify({ t: 'pv', path, referrer, country, device, width }));
-    }
+    const db = env.ANALYTICS_DB;
+    await db
+      .prepare(
+        'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',
+      )
+      .bind(Math.floor(Date.now() / 1000), path, referrer, country, device, width)
+      .run();
   } catch {
     /* 計測失敗はユーザー体験に影響させない */
   }

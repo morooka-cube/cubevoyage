@@ -1,6 +1,6 @@
 # ADR 0001: Web アナリティクスを Cloudflare 製から自前ファーストパーティ計測へ移行
 
-- ステータス: Accepted
+- ステータス: Superseded by [ADR 0002](0002-remove-d1-fallback.md)
 - 日付: 2026-07-10
 - 関連: PR #34
 
