@@ -112,7 +112,7 @@ D1 バインディングは `wrangler.toml` に設定済み。別の Cloudflare 
 ```bash
 npx wrangler d1 create cubevoyage_analytics
 # 出力された database_id を wrangler.toml の [[d1_databases]] に反映
-npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+npx wrangler d1 migrations apply cubevoyage_analytics --remote   # migrations/ を適用
 npx wrangler secret put ANALYTICS_DASH_KEY   # ダッシュボード閲覧用パスワード
 npm run deploy
 ```

@@ -6,15 +6,6 @@ import { env } from 'cloudflare:workers';
 //    無ければ Workers Logs に出力する。
 export const prerender = false;
 
-// D1 の最小インターフェース（バインディング未設定でも型エラーにしないため自前定義）
-interface D1Prepared {
-  bind(...values: unknown[]): D1Prepared;
-  run(): Promise<unknown>;
-}
-interface D1Like {
-  prepare(sql: string): D1Prepared;
-}
-
 interface Beacon {
   p?: unknown; // pathname
   r?: unknown; // document.referrer
@@ -60,7 +51,8 @@ export const POST: APIRoute = async ({ request }) => {
     const device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop';
     const width = typeof data.w === 'number' && isFinite(data.w) ? Math.round(data.w) : 0;
 
-    const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
+    // バインディング未設定の環境では実行時に undefined になりうる
+    const db: D1Database | undefined = env.ANALYTICS_DB;
     if (db) {
       await db
         .prepare(

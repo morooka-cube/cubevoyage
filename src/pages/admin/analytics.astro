@@ -15,13 +15,6 @@ function titleForPath(path: string): string | undefined {
 export const prerender = false;
 
 type Row = Record<string, string | number>;
-interface D1Prepared {
-  bind(...values: unknown[]): D1Prepared;
-  all<T = Row>(): Promise<{ results: T[] }>;
-}
-interface D1Like {
-  prepare(sql: string): D1Prepared;
-}
 
 /** 早期 return せずに比較するタイミングセーフな文字列一致判定 */
 function safeEqual(a: string, b: string): boolean {
@@ -46,7 +39,9 @@ function basicAuthKey(header: string | null): string {
   }
 }
 
-const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
+// バインディング未設定の環境では実行時に undefined になりうる
+const db: D1Database | undefined = env.ANALYTICS_DB;
+// シークレットは wrangler.toml に現れないため生成型に含まれない。ここでのみキャストする
 const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
 const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
 
@@ -150,8 +145,8 @@ const dailyMax =
         <p>計測自体は動作しており、イベントは Cloudflare の <strong>Workers Logs</strong> に出力されています。
           集計ダッシュボードを使うには、無料枠の D1 を有効化してください：</p>
         <pre>npx wrangler d1 create cubevoyage_analytics
-# 出力された database_id を wrangler.toml に貼り、[[d1_databases]] のコメントを外す
-npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+# 出力された database_id を wrangler.toml の [[d1_databases]] に反映
+npx wrangler d1 migrations apply cubevoyage_analytics --remote
 npx wrangler secret put ANALYTICS_DASH_KEY   # 閲覧用パスワード
 npm run deploy</pre>
       </div>
@@ -164,7 +159,7 @@ npm run deploy</pre>
     )}
 
     {authorized && fatalError && (
-      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（schema.sql を実行してください）。</div>
+      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（wrangler d1 migrations apply を実行してください）。</div>
     )}
 
     {authorized && !fatalError && (
