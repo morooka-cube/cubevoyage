@@ -2,6 +2,12 @@ name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
+# Workers Logs を有効化（/api/hit の console.log 計測イベントを保存・ダッシュボードで閲覧）。
+# head_sampling_rate = 1 で全リクエストのログを記録する。
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 # 自前 Web アナリティクス（ファーストパーティ計測）
 # 既定では追加リソース不要：/api/hit が計測イベントを Workers Logs に出力する。
 #
