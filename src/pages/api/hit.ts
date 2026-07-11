@@ -2,11 +2,10 @@ import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 
 // ▼ 自前 Web アナリティクスの収集エンドポイント。SSR 専用。
-//    D1（ANALYTICS_DB バインディング）があればそこに記録し、
-//    無ければ Workers Logs に出力する。
+//    D1（ANALYTICS_DB バインディング）に記録する。
 export const prerender = false;
 
-// D1 の最小インターフェース（バインディング未設定でも型エラーにしないため自前定義）
+// D1 の最小インターフェース（型定義パッケージを導入していないため自前定義）
 interface D1Prepared {
   bind(...values: unknown[]): D1Prepared;
   run(): Promise<unknown>;
@@ -60,18 +59,13 @@ export const POST: APIRoute = async ({ request }) => {
     const device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop';
     const width = typeof data.w === 'number' && isFinite(data.w) ? Math.round(data.w) : 0;
 
-    const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
-    if (db) {
-      await db
-        .prepare(
-          'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',
-        )
-        .bind(Math.floor(Date.now() / 1000), path, referrer, country, device, width)
-        .run();
-    } else {
-      // D1 未設定時は Workers Logs に構造化ログとして出力（後から集計・Logpush 可能）
-      console.log(JSON.stringify({ t: 'pv', path, referrer, country, device, width }));
-    }
+    const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like;
+    await db
+      .prepare(
+        'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',
+      )
+      .bind(Math.floor(Date.now() / 1000), path, referrer, country, device, width)
+      .run();
   } catch {
     /* 計測失敗はユーザー体験に影響させない */
   }

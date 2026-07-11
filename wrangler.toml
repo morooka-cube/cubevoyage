@@ -2,8 +2,7 @@ name = "cubevoyage"
 compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
 
-# Workers Logs を有効化。D1 バインドが無い環境で /api/hit が出力する計測イベントの
-# フォールバック保存先。head_sampling_rate = 1 で全リクエストのログを記録する。
+# Workers Logs を有効化。head_sampling_rate = 1 で全リクエストのログを記録する。
 [observability]
 enabled = true
 head_sampling_rate = 1
