@@ -31,6 +31,12 @@ export function getChildren(path: string): PageMeta[] {
   return allPages.filter((p) => parentPath(p.path) === path).sort(sortPages);
 }
 
+// 任意パスのページタイトルを取得（末尾スラッシュの有無を許容）。該当ページがなければ undefined
+export function getTitle(path: string): string | undefined {
+  const normalized = path.length > 1 ? path.replace(/\/+$/, "") : path;
+  return byPath.get(normalized)?.title;
+}
+
 // パンくず: ルート直下〜親までの {path,title}（現在ページは含めない）
 export function getBreadcrumb(path: string): { path: string; title: string }[] {
   const segs = path.replace(/\/$/, "").slice(1).split("/");

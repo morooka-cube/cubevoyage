@@ -1,5 +1,12 @@
 ---
 import { env } from 'cloudflare:workers';
+import { getTitle } from '../../lib/nav';
+import { SITE } from '../../lib/site';
+
+/** パスからページタイトルを引く。トップページは SITE.title、該当なしは undefined */
+function titleForPath(path: string): string | undefined {
+  return path === '/' ? SITE.title : getTitle(path);
+}
 
 // ▼ 自前 Web アナリティクスの閲覧ダッシュボード。
 //    D1（ANALYTICS_DB）を直接クエリして集計を表示する。API トークン不要。
@@ -189,10 +196,14 @@ npm run deploy</pre>
         <h2>人気ページ（30日）</h2>
         {topPaths.error ? <div class="err">{topPaths.error}</div> : (
           <table>
-            <thead><tr><th>パス</th><th class="num">PV</th></tr></thead>
+            <thead><tr><th>タイトル</th><th>パス</th><th class="num">PV</th></tr></thead>
             <tbody>
               {(topPaths.data ?? []).map((r) => (
-                <tr><td>{String(r.path)}</td><td class="num">{nf.format(Number(r.views) || 0)}</td></tr>
+                <tr>
+                  <td>{titleForPath(String(r.path)) ?? <span class="muted">—</span>}</td>
+                  <td>{String(r.path)}</td>
+                  <td class="num">{nf.format(Number(r.views) || 0)}</td>
+                </tr>
               ))}
             </tbody>
           </table>
