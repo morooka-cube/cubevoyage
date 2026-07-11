@@ -84,22 +84,18 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 
 ## Web アナリティクス（自前計測）
 
-`cloudflareinsights.com` の JS ビーコンは広告ブロッカーにブロックされやすいため、
-**ファーストパーティ（自ドメイン）での計測**に置き換えています。第三者スクリプトゼロ・Cookie なし。
+ファーストパーティ（自ドメイン）で計測します。第三者スクリプトゼロ・Cookie なし。
+この方式を選んだ背景・検討した代替案は [ADR 0001](docs/adr/0001-web-analytics-first-party.md) を参照。
 
 | 役割 | 実体 |
 |---|---|
-| 送信 | `BaseLayout.astro` のインラインビーコン → `navigator.sendBeacon('/api/hit', …)` |
+| 送信 | `BaseLayout.astro` から `src/scripts/analytics.ts` を読み込み → `navigator.sendBeacon('/api/hit', …)` |
 | 収集 | `src/pages/api/hit.ts`（SSR）。D1 があれば記録、無ければ Workers Logs に出力 |
 | 保存先 | D1 データベース `cubevoyage_analytics`（任意・無料枠） |
 | 閲覧 | `src/pages/admin/analytics.astro`（SSR・要キー）→ D1 を直接クエリ |
 
 記録項目：パス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅。
 IP アドレスやユーザー識別子は保存しません。
-
-> 当初 Cloudflare Workers Analytics Engine を使う構成にしていたが、
-> AE はアカウント側での有効化（有料 Workers プラン）が必要でデプロイが `10089
-> no_access_to_analytics_engine` で失敗するため、無料枠で完結する D1 方式に変更した。
 
 ### 既定（追加設定なし）
 

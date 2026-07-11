@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 
-// ▼ 自前 Web アナリティクスの収集エンドポイント。
-//    ファーストパーティ（自ドメイン）で受けるため広告ブロッカーに強い。
+// ▼ 自前 Web アナリティクスの収集エンドポイント。SSR 専用。
 //    D1（ANALYTICS_DB バインディング）があればそこに記録し、
-//    無ければ Workers Logs に出力する（追加リソース不要）。SSR 専用。
+//    無ければ Workers Logs に出力する。
 export const prerender = false;
 
 // D1 の最小インターフェース（バインディング未設定でも型エラーにしないため自前定義）
