@@ -40,18 +40,20 @@
   ページ読み込み時に `navigator.sendBeacon('/api/hit', …)` で自ドメインへ送信する。
 - **収集**: `src/pages/api/hit.ts`（SSR エンドポイント）で受信。
   - D1 バインディング `ANALYTICS_DB` があれば D1 に記録する。
-  - 無ければ `console.log` で **Workers Logs** に構造化出力する（既定・追加リソース不要）。
-- **保存（任意・無料枠）**: D1 データベース `cubevoyage_analytics`（スキーマは `schema.sql`）。
-- **閲覧（任意）**: `src/pages/admin/analytics.astro`（SSR・`?key=` 認証）が D1 を直接クエリして
-  過去30日を集計表示する。API トークンは不要。
+  - 無ければ `console.log` で **Workers Logs** に構造化出力する（追加リソース不要のフォールバック）。
+- **保存（無料枠）**: D1 データベース `cubevoyage_analytics`（スキーマは `schema.sql`）。
+  `wrangler.toml` でバインド済み。
+- **閲覧**: `src/pages/admin/analytics.astro`（SSR）が D1 を直接クエリして過去30日を集計表示する。
+  認証は **HTTP Basic 認証**（`ANALYTICS_DASH_KEY` を照合）。キーを URL に載せないことで
+  Workers Logs・ブラウザ履歴・Referer への漏洩を避ける。API トークンは不要。
 - **観測性**: `wrangler.toml` の `[observability]` で Workers Logs を有効化し、
-  既定構成でも計測イベントを保存・閲覧できるようにする。
+  D1 バインドが無い環境でも計測イベントを保存・閲覧できるようにする。
 
 記録項目はパス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅のみ。
 **IP アドレスやユーザー識別子は保存しない。Cookie も使わない。**
 
-Analytics Engine は不採用とし、`wrangler.toml` では D1 バインディングを
-コメントの雛形として残す（有効化はユーザーの任意操作）。
+Analytics Engine は不採用とし、代わりに D1 バインディングを `wrangler.toml` に設定する
+（`database_id` はデプロイ先アカウントの D1 を指す）。
 
 ## 影響
 
@@ -59,14 +61,15 @@ Analytics Engine は不採用とし、`wrangler.toml` では D1 バインディ�
 
 - 自ドメイン受信のため広告ブロッカーに強く、計測漏れが大幅に減る。
 - 第三者スクリプト・Cookie ゼロでプライバシー的にクリーン。
-- 無料枠で完結。バインディングは `SESSION(KV)` / `ASSETS` のみとなり、既存の稼働構成と一致する
+- 無料枠で完結。追加バインドは D1（無料枠）のみで、AE のような有料プラン前提のリソースを使わない
   → Git 統合デプロイがグリーンになる。
-- 段階的に強化できる（既定はログ、必要なら D1 でダッシュボード、将来 AE へ戻すことも可能）。
+- D1 バインドが無い環境でも Workers Logs へフォールバックするため計測は落ちない。将来 AE へ戻すことも可能。
 
 ### 割り切り・コスト
 
-- 既定（ログのみ）では集計ダッシュボードがなく、Workers Logs を目視する形になる。
-  本格的な集計には D1 の有効化（`wrangler d1 create` ＋ `schema.sql` 適用）という一手間が必要。
+- D1 データベースはデプロイ先アカウントに存在している必要がある（`wrangler d1 create` ＋ `schema.sql` 適用）。
+  別アカウントへ移す場合は `database_id` の差し替えが要る。D1 バインドが無い環境では
+  集計ダッシュボードは使えず、Workers Logs を目視する形になる。
 - 独自実装のため計測ロジックの保守は自分たちの責任になる。
 - SSR エンドポイント（`/api/hit`）が増える。ただし計測失敗は握りつぶし、ページ体験には影響させない。
 

@@ -90,32 +90,35 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 | 役割 | 実体 |
 |---|---|
 | 送信 | `BaseLayout.astro` から `src/scripts/analytics.ts` を読み込み → `navigator.sendBeacon('/api/hit', …)` |
-| 収集 | `src/pages/api/hit.ts`（SSR）。D1 があれば記録、無ければ Workers Logs に出力 |
-| 保存先 | D1 データベース `cubevoyage_analytics`（任意・無料枠） |
-| 閲覧 | `src/pages/admin/analytics.astro`（SSR・要キー）→ D1 を直接クエリ |
+| 収集 | `src/pages/api/hit.ts`（SSR）。D1 に記録（D1 バインドが無い環境では Workers Logs に出力） |
+| 保存先 | D1 データベース `cubevoyage_analytics`（`wrangler.toml` でバインド済み・無料枠） |
+| 閲覧 | `src/pages/admin/analytics.astro`（SSR・Basic 認証）→ D1 を直接クエリ |
 
 記録項目：パス / リファラのホスト / 国（`cf-ipcountry`）/ デバイス（UA から desktop・mobile）/ 画面幅。
 IP アドレスやユーザー識別子は保存しません。
 
-### 既定（追加設定なし）
+### ダッシュボードの閲覧
 
-デプロイするだけで計測は動作し、イベントは Cloudflare の **Workers Logs** に
-`{"t":"pv","path":…}` 形式で出力される（ダッシュボード → Workers & Pages → 対象 Worker → Logs）。
+`https://cubevoyage.net/admin/analytics/` にアクセスすると Basic 認証を求められる。
+ユーザー名は任意、パスワードに `ANALYTICS_DASH_KEY`（下記で設定した値）を入力する。
+キーは `Authorization` ヘッダで送られ URL には載らないため、ログ・ブラウザ履歴・Referer に漏れない。
+API トークンは不要（Worker が D1 バインディングを直接クエリする）。
 
-### 集計ダッシュボードを有効化する（任意・無料）
+### セットアップ（別アカウントへデプロイする場合）
 
-D1（無料枠）を有効化すると `/api/hit` は自動で D1 に記録し、集計ダッシュボードが使える。
+D1 バインディングは `wrangler.toml` に設定済み。別の Cloudflare アカウントへデプロイする際は、
+同名の D1 を作成して `database_id` を差し替える：
 
 ```bash
 npx wrangler d1 create cubevoyage_analytics
-# 出力された database_id を wrangler.toml の [[d1_databases]] に貼り、コメントを外す
+# 出力された database_id を wrangler.toml の [[d1_databases]] に反映
 npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
-npx wrangler secret put ANALYTICS_DASH_KEY   # 任意の閲覧用パスワード
+npx wrangler secret put ANALYTICS_DASH_KEY   # ダッシュボード閲覧用パスワード
 npm run deploy
 ```
 
-設定後、`https://cubevoyage.net/admin/analytics/?key=<ANALYTICS_DASH_KEY>` で過去30日の集計を表示する。
-API トークンは不要（Worker が D1 バインディングを直接クエリする）。
+D1 バインドが無い環境では `/api/hit` は計測イベントを Cloudflare の **Workers Logs** に
+`{"t":"pv","path":…}` 形式で出力する（ダッシュボード → Workers & Pages → 対象 Worker → Logs）。
 
 ---
 
