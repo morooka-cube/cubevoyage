@@ -3,7 +3,8 @@ import { env } from 'cloudflare:workers';
 
 // ▼ 自前 Web アナリティクスの閲覧ダッシュボード。
 //    D1（ANALYTICS_DB）を直接クエリして集計を表示する。API トークン不要。
-//    ?key=<ANALYTICS_DASH_KEY> による簡易認証。SSR 専用。
+//    HTTP Basic 認証（Authorization ヘッダ）で ANALYTICS_DASH_KEY を照合する。
+//    キーを URL に載せない＝ Workers Logs・ブラウザ履歴・Referer に漏らさない。SSR 専用。
 export const prerender = false;
 
 type Row = Record<string, string | number>;
@@ -15,15 +16,43 @@ interface D1Like {
   prepare(sql: string): D1Prepared;
 }
 
+/** 早期 return せずに比較するタイミングセーフな文字列一致判定 */
+function safeEqual(a: string, b: string): boolean {
+  const enc = new TextEncoder();
+  const ab = enc.encode(a);
+  const bb = enc.encode(b);
+  let diff = ab.length ^ bb.length; // 長さ差もフラグに畳み込む
+  for (let i = 0; i < ab.length; i++) diff |= ab[i] ^ (bb[i] ?? 0);
+  return diff === 0;
+}
+
+/** `Authorization: Basic <base64(user:pass)>` から pass 部分を取り出す（user は任意） */
+function basicAuthKey(header: string | null): string {
+  const m = header ? /^Basic\s+(.+)$/i.exec(header) : null;
+  if (!m) return '';
+  try {
+    const decoded = atob(m[1]);
+    const i = decoded.indexOf(':');
+    return i === -1 ? decoded : decoded.slice(i + 1);
+  } catch {
+    return '';
+  }
+}
+
 const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like | undefined;
 const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
-const givenKey = Astro.url.searchParams.get('key') ?? '';
+const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
 
 const configured = Boolean(db);
-const authorized = configured && Boolean(dashKey) && givenKey.length > 0 && givenKey === dashKey;
+const authorized =
+  configured && Boolean(dashKey) && givenKey.length > 0 && safeEqual(givenKey, dashKey!);
 
 if (!authorized) {
   Astro.response.status = 401;
+  // D1 設定済みで未認証のときだけブラウザにネイティブ認証プロンプトを出す。
+  if (configured) {
+    Astro.response.headers.set('WWW-Authenticate', 'Basic realm="Cube Voyage Analytics"');
+  }
 }
 
 type Section = { data?: Row[]; error?: string };
@@ -122,7 +151,8 @@ npm run deploy</pre>
     )}
 
     {configured && !authorized && (
-      <p class="err">認証が必要です。<code>?key=&lt;ANALYTICS_DASH_KEY&gt;</code> を付けてアクセスしてください。
+      <p class="err">認証が必要です。ブラウザの認証ダイアログで、ユーザー名は任意・パスワードに
+        <code>ANALYTICS_DASH_KEY</code> を入力してください。
         （<code>wrangler secret put ANALYTICS_DASH_KEY</code> 未設定の場合はまず設定してください）</p>
     )}
 
