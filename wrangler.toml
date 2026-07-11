@@ -11,14 +11,11 @@ head_sampling_rate = 1
 # 自前 Web アナリティクス（ファーストパーティ計測）
 # 既定では追加リソース不要：/api/hit が計測イベントを Workers Logs に出力する。
 #
-# 集計ダッシュボード（/admin/analytics）を使う場合は D1（無料枠）を有効化する：
-#   1) npx wrangler d1 create cubevoyage_analytics
-#   2) 出力された database_id を下に貼り、この3行のコメントを外す
-#   3) npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
-#   4) npx wrangler secret put ANALYTICS_DASH_KEY   # 閲覧用パスワード
-# D1 を有効化すると /api/hit は自動で D1 に記録し、ダッシュボードが集計を表示する。
-#
-# [[d1_databases]]
-# binding = "ANALYTICS_DB"
-# database_name = "cubevoyage_analytics"
-# database_id = "<wrangler d1 create の出力を貼る>"
+# 集計ダッシュボード（/admin/analytics）用の D1（無料枠）。
+# /api/hit は ANALYTICS_DB があれば D1 に記録し、ダッシュボードが集計を表示する。
+# スキーマ適用: npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+# 閲覧キー設定: npx wrangler secret put ANALYTICS_DASH_KEY
+[[d1_databases]]
+binding = "ANALYTICS_DB"
+database_name = "cubevoyage_analytics"
+database_id = "970a406a-beaf-4f46-9a4f-de693d69eb5b"
