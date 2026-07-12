@@ -4,11 +4,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler types && astro dev",
-    "build": "wrangler types && astro build",
+    "dev": "export TZ=Asia/Tokyo; wrangler types && astro dev",
+    "build": "export TZ=Asia/Tokyo; wrangler types && astro build",
     "preview": "wrangler dev",
     "astro": "astro",
-    "deploy": "wrangler types && astro build && wrangler deploy"
+    "deploy": "export TZ=Asia/Tokyo; wrangler types && astro build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.2",

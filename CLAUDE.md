@@ -24,6 +24,18 @@ npm run deploy     # ビルド＋Cloudflare Workers デプロイ
 - ADR は連番（`0001` から）＋ Nygard 形式（ステータス / コンテキスト / 決定 / 影響）。
   過去の決定を覆す場合は当該 ADR を `Superseded` にして後続 ADR を追加する（既存 ADR は書き換えない）。
 
+## 日時の扱い
+
+**開発・運用で日時を扱うときは日本時間（JST, UTC+9）をデフォルトとする。** 経緯は ADR 0004 参照。
+
+- 開発・ビルド（`npm run dev` / `npm run build` / `npm run deploy`）は `TZ=Asia/Tokyo` を設定済み。
+- Cloudflare Workers ランタイム（SSR: `/api/hit`, `/admin/analytics`）は常に UTC で動作し `TZ` の
+  影響を受けない。D1 に保存する `ts` は UTC unix epoch 秒のまま保持し、JST への変換は
+  読み出し・集計クエリ側で行う（例: `date(ts, 'unixepoch', '+9 hours')`）。
+- `/admin/analytics` の日別集計・表示は日本時間で行う。24 時間 / 7 日 / 30 日の相対集計は
+  タイムゾーンに依存しないため UTC 基準の計算のままでよい。
+- 新しく日時を扱うコードを書く場合もこの原則（保存は UTC、表示・集計は JST 変換）に従う。
+
 ## 開発ワークフロー
 
 ### プッシュ前のコードレビュー（必須）
