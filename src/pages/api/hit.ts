@@ -5,15 +5,6 @@ import { env } from 'cloudflare:workers';
 //    D1（ANALYTICS_DB バインディング）に記録する。
 export const prerender = false;
 
-// D1 の最小インターフェース（型定義パッケージを導入していないため自前定義）
-interface D1Prepared {
-  bind(...values: unknown[]): D1Prepared;
-  run(): Promise<unknown>;
-}
-interface D1Like {
-  prepare(sql: string): D1Prepared;
-}
-
 interface Beacon {
   p?: unknown; // pathname
   r?: unknown; // document.referrer
@@ -59,7 +50,7 @@ export const POST: APIRoute = async ({ request }) => {
     const device = /Mobi|Android|iPhone|iPad|iPod/i.test(ua) ? 'mobile' : 'desktop';
     const width = typeof data.w === 'number' && isFinite(data.w) ? Math.round(data.w) : 0;
 
-    const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like;
+    const db = env.ANALYTICS_DB;
     await db
       .prepare(
         'INSERT INTO hits (ts, path, referrer, country, device, width) VALUES (?, ?, ?, ?, ?, ?)',

@@ -1,5 +1,4 @@
--- 自前 Web アナリティクス（D1）のスキーマ。
--- 適用: npx wrangler d1 execute cubevoyage_analytics --remote --file schema.sql
+-- 自前 Web アナリティクスの hits テーブル。
 CREATE TABLE IF NOT EXISTS hits (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ts INTEGER NOT NULL,                       -- unix 秒

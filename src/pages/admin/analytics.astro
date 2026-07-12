@@ -15,13 +15,6 @@ function titleForPath(path: string): string | undefined {
 export const prerender = false;
 
 type Row = Record<string, string | number>;
-interface D1Prepared {
-  bind(...values: unknown[]): D1Prepared;
-  all<T = Row>(): Promise<{ results: T[] }>;
-}
-interface D1Like {
-  prepare(sql: string): D1Prepared;
-}
 
 /** 早期 return せずに比較するタイミングセーフな文字列一致判定 */
 function safeEqual(a: string, b: string): boolean {
@@ -46,7 +39,8 @@ function basicAuthKey(header: string | null): string {
   }
 }
 
-const db = (env as Record<string, unknown>).ANALYTICS_DB as D1Like;
+const db = env.ANALYTICS_DB;
+// シークレットは wrangler.toml に現れないため生成型に含まれない。ここでのみキャストする
 const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
 const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
 
@@ -146,7 +140,7 @@ const dailyMax =
     )}
 
     {authorized && fatalError && (
-      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（schema.sql を実行してください）。</div>
+      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（wrangler d1 migrations apply を実行してください）。</div>
     )}
 
     {authorized && !fatalError && (
