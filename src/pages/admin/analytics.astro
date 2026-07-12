@@ -61,7 +61,9 @@ async function section(sql: string): Promise<Section> {
   }
 }
 
-// SQLite（D1）。ts は unix 秒。unixepoch() で現在時刻の秒を得る。
+// SQLite（D1）。ts は UTC unix 秒のまま保存されている（ADR 0004）。
+// unixepoch() で現在時刻の秒を得る。24h/7d/30d の相対集計はタイムゾーン非依存だが、
+// 日別集計はカレンダー日境界に依存するため '+9 hours' で日本時間に変換してから区切る。
 const w30 = 'ts > unixepoch() - 2592000';
 
 let totals = { d1: 0, d7: 0, d30: 0 };
@@ -94,7 +96,7 @@ if (authorized) {
       section(`SELECT referrer, COUNT(*) AS views FROM hits WHERE ${w30} AND referrer != '' GROUP BY referrer ORDER BY views DESC LIMIT 30`),
       section(`SELECT device, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY device ORDER BY views DESC`),
       section(`SELECT country, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY country ORDER BY views DESC LIMIT 30`),
-      section(`SELECT date(ts, 'unixepoch') AS day, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY day ORDER BY day`),
+      section(`SELECT date(ts, 'unixepoch', '+9 hours') AS day, COUNT(*) AS views FROM hits WHERE ${w30} GROUP BY day ORDER BY day`),
     ]);
   }
 }
@@ -153,7 +155,7 @@ const dailyMax =
           <div class="card"><div class="n">{nf.format(totals.d30)}</div><div class="l">直近 30 日間</div></div>
         </div>
 
-        <h2>日別ページビュー（30日）</h2>
+        <h2>日別ページビュー（30日・日本時間）</h2>
         {daily.error ? <div class="err">{daily.error}</div> : (
           <table>
             <thead><tr><th>日付</th><th class="num">PV</th><th>　</th></tr></thead>
