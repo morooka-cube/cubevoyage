@@ -24,7 +24,8 @@ src/
     DocPage.astro   ← Content Collection ページの共通レイアウト
   lib/
     site.ts         ← サイト定数（title/description・主要ナビ slug）
-    nav.ts          ← 全 md の frontmatter からナビ/パンくず/子一覧を導出
+    nav.ts          ← Content Collections からページ一覧を取得して nav-core に渡す
+    nav-core.ts     ← ナビ/パンくず/子一覧の導出ロジック（Astro 非依存の純粋関数）
     types.ts
   pages/
     [...slug].astro ← Content Collection の全エントリーを描画
@@ -35,6 +36,9 @@ src/
   styles/global.css
 public/
   robots.txt
+tests/
+  nav-core.test.ts     ← ナビ導出ロジックの単体テスト
+  build-output.test.ts ← dist/ の生成結果を検証するスモークテスト
 ```
 
 ---
@@ -53,6 +57,20 @@ npm run build     # dist/ に出力
 npm run preview   # wrangler dev（Cloudflare Workers シミュレーションでプレビュー）
 npm run deploy    # ビルド＋Cloudflare Workers デプロイ
 ```
+
+## テスト・型チェック
+
+```bash
+npm run typecheck            # wrangler types + astro check（型エラーで失敗）
+npm run build && npm test    # 単体テスト＋ dist/ のスモークテスト
+npm run test:watch           # ウォッチ実行
+```
+
+`tests/build-output.test.ts` は `dist/` を読むため、先に `npm run build` が必要です。
+
+GitHub Actions（`.github/workflows/ci.yml`）が push（main）と全 PR で
+typecheck → build → test を実行します。Dependabot の依存更新 PR はこの CI が
+緑であることを確認してからマージします。方針は [ADR 0005](docs/adr/0005-ci-automated-tests.md) を参照。
 
 ---
 
