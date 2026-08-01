@@ -12,6 +12,20 @@ const contentDir = `${root}src/content`;
 
 const read = (relPath: string) => readFileSync(`${clientDir}/${relPath}`, "utf8");
 
+// HTML 断片から href 属性を出現順に取り出す
+function hrefs(html: string): string[] {
+  return [...html.matchAll(/href="([^"]*)"/g)].map((m) => m[1]);
+}
+
+// 指定要素のブロックを切り出す（ネストしない要素のみ対象）
+function block(html: string, openTag: string, tagName: string): string {
+  const start = html.indexOf(openTag);
+  expect(start, `${openTag} が見つからない`).toBeGreaterThanOrEqual(0);
+  const end = html.indexOf(`</${tagName}>`, start);
+  expect(end, `${openTag} が閉じられていない`).toBeGreaterThan(start);
+  return html.slice(start, end);
+}
+
 // src/content/**/*.md を再帰列挙し、URL パス（先頭・末尾スラッシュ付き）に変換する
 function contentUrlPaths(dir = contentDir, prefix = ""): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -58,16 +72,40 @@ describe("ページ生成", () => {
     }
   });
 
-  it("下層ページにパンくずが出力される", () => {
+  it("下層ページのパンくずにホーム〜親ページが並ぶ", () => {
     const html = read("how-to-solve/beginner-m2l/step1/index.html");
-    expect(html).toContain('class="breadcrumbs"');
-    expect(html).toContain('href="/how-to-solve"');
-    expect(html).toContain('href="/how-to-solve/beginner-m2l"');
+    const breadcrumbs = block(html, '<nav class="breadcrumbs"', "nav");
+    expect(hrefs(breadcrumbs)).toEqual([
+      "/",
+      "/how-to-solve",
+      "/how-to-solve/beginner-m2l",
+    ]);
+    // 現在ページはリンクにしない
+    expect(breadcrumbs).toContain('<span aria-current="page">ステップ１');
   });
 
-  it("子ページ一覧が親ページに出力される", () => {
-    const html = read("how-to-solve/index.html");
-    expect(html).toContain('href="/how-to-solve/beginner-m2l"');
+  it("トップレベルページのパンくずはホームのみ", () => {
+    const breadcrumbs = block(
+      read("how-to-solve/index.html"),
+      '<nav class="breadcrumbs"',
+      "nav"
+    );
+    expect(hrefs(breadcrumbs)).toEqual(["/"]);
+  });
+
+  it("ヘッダーのドロップダウンに子ページが order 順で並ぶ", () => {
+    const navItem = block(
+      read("index.html"),
+      '<div class="dropdown">',
+      "div"
+    );
+    expect(hrefs(navItem)).toEqual([
+      "/how-to-solve/beginner-m2l",
+      "/how-to-solve/intermediate-m2l",
+      "/how-to-solve/intermediate",
+      "/how-to-solve/advanced",
+      "/how-to-solve/advice",
+    ]);
   });
 });
 
@@ -101,14 +139,15 @@ describe("サイトマップ / robots", () => {
 describe("Cloudflare 向け出力", () => {
   it("astro.config のリダイレクトが _redirects に出力される", () => {
     expect(read("_redirects")).toMatch(
-      /^\/how-to-solve\/beginner\/\s+\/how-to-solve\/beginner-m2l\/\s+301$/m
+      /^\/how-to-solve\/beginner\/[ \t]+\/how-to-solve\/beginner-m2l\/[ \t]+301$/m
     );
   });
 
   it("_astro/* に immutable な Cache-Control が付く", () => {
-    const headers = read("_headers");
-    expect(headers).toContain("/_astro/*");
-    expect(headers).toContain("Cache-Control: public, max-age=31536000, immutable");
+    // ルール行の直下に、そのルールに属するヘッダー行が続くことを確認する
+    expect(read("_headers")).toMatch(
+      /^\/_astro\/\*\n[ \t]+Cache-Control: public, max-age=31536000, immutable$/m
+    );
   });
 });
 

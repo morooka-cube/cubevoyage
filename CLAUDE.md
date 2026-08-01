@@ -95,7 +95,7 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 ### レイアウト
 
 - `BaseLayout.astro` — `<html>`・`<head>`・SEO・OGP。全レイアウトの基底
-- `DocPage.astro` — Content Collection ページ向け。パンくず・子ページ一覧を自動付与
+- `DocPage.astro` — Content Collection ページ向け。パンくずを自動付与
 
 ### デプロイ構成
 
