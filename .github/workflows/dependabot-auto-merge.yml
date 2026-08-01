@@ -18,7 +18,7 @@ jobs:
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
 
-      # major 更新（破壊的変更の可能性）は対象外とし、手動レビュー・マージに委ねる
+      # 対象は minor/patch のみ。major は手動マージのまま（docs/adr/0006 参照）
       - name: Enable auto-merge for minor/patch Dependabot PRs
         if: |
           steps.metadata.outputs.update-type == 'version-update:semver-patch' ||
