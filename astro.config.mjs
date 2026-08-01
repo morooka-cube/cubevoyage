@@ -10,7 +10,6 @@ export default defineConfig({
   // オンデマンド(SSR)レンダリングし、Cloudflare 上で本物の HTTP 418 を返す。
   output: 'static',
   adapter: cloudflare({
-    platformProxy: { enabled: true },
     imageService: 'compile',
   }),
   integrations: [

@@ -9,9 +9,13 @@ npm run dev        # 開発サーバー起動（astro dev）
 npm run build      # 静的サイトビルド（astro build）
 npm run preview    # Cloudflare Workers シミュレーションでプレビュー（wrangler dev）
 npm run deploy     # ビルド＋Cloudflare Workers デプロイ
+npm run typecheck  # wrangler types + astro check
+npm test           # Vitest（dist/ を読むテストがあるため build 後に実行する）
+npm run test:watch # Vitest ウォッチ実行
 ```
 
-テスト・lint コマンドは未設定。
+lint コマンドは未設定。CI（`.github/workflows/ci.yml`）は push（main）と全 PR で
+typecheck → build → test を実行する。方針は ADR 0005 参照。
 
 ## ドキュメント方針
 
@@ -68,9 +72,13 @@ order: 2        # 兄弟ページ間のソート順（昇順）
 ---
 ```
 
-### ナビゲーション生成（`src/lib/pages.ts`）
+### ナビゲーション生成（`src/lib/nav.ts` / `src/lib/nav-core.ts`）
 
 ナビゲーション・パンくず・子ページ一覧は **frontmatter + ファイルパスからビルド時に自動導出**する。ナビ構成を変えたい場合はフロントマターの `order` を変えるか、ファイルを移動する。
+
+導出ロジックは `src/lib/nav-core.ts`（Astro 非依存の純粋関数）にあり、`src/lib/nav.ts` は
+`astro:content` からページ一覧を取得して `buildNav()` に渡すだけの層。ロジックを変更するときは
+`nav-core.ts` を編集し、`tests/nav-core.test.ts` を更新する。
 
 - `primaryNav` — ヘッダー主要ナビ。`src/lib/site.ts` の `PRIMARY_SLUGS` で順序を制御
 - `footerNav` — PRIMARY_SLUGS 以外のトップレベルページ

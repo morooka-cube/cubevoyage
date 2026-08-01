@@ -41,7 +41,9 @@ function basicAuthKey(header: string | null): string {
 
 const db = env.ANALYTICS_DB;
 // シークレットは wrangler.toml に現れないため生成型に含まれない。ここでのみキャストする
-const dashKey = (env as Record<string, unknown>).ANALYTICS_DASH_KEY as string | undefined;
+const dashKey = (env as unknown as Record<string, unknown>).ANALYTICS_DASH_KEY as
+  | string
+  | undefined;
 const givenKey = basicAuthKey(Astro.request.headers.get('authorization'));
 
 const authorized = Boolean(dashKey) && givenKey.length > 0 && safeEqual(givenKey, dashKey!);
@@ -142,7 +144,7 @@ const dailyMax =
     )}
 
     {authorized && fatalError && (
-      <div class="err">集計に失敗しました：{fatalError}{'\n'}スキーマ未適用の可能性があります（wrangler d1 migrations apply を実行してください）。</div>
+      <div class="err">集計に失敗しました：{fatalError + '\n'}スキーマ未適用の可能性があります（wrangler d1 migrations apply を実行してください）。</div>
     )}
 
     {authorized && !fatalError && (
