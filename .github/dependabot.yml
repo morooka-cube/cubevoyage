@@ -18,6 +18,10 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
     groups:
+      # minor / patch は 1 本の PR にまとめる（major は個別 PR のまま）
       github-actions:
         patterns:
           - "*"
+        update-types:
+          - "minor"
+          - "patch"
