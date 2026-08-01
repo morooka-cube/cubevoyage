@@ -1,5 +1,5 @@
 // サイト全体の定数（ページ本文ではない site レベル設定）。
-// ナビ・パンくず等のページ階層は frontmatter から src/lib/pages.ts が導出する。
+// ナビ・パンくず等のページ階層は frontmatter から src/lib/nav.ts が導出する。
 
 export const SITE = {
   title: 'Cube Voyage',
