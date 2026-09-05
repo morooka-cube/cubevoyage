@@ -5,7 +5,7 @@ order: 5
 ---
 COやEOの処理に便利な手順をまとめています。
 
-| **CO** |
+| **CO** |  |
 | --- | --- |
 | [![CO1](@assets/2016/02/CO1.gif)](@assets/2016/02/CO1.gif) | [R U2 R' U' R U' R'] [L' U2 L U L' U L] |
 | [![CO2](@assets/2016/02/CO2.gif)](@assets/2016/02/CO2.gif) | [L U L' U L U2 L'] [R' U' R U' R' U2 R] |

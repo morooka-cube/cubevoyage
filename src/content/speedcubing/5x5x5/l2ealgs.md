@@ -10,7 +10,7 @@ order: 0
 例えば下の場合、左のパターンで下のエッジをひっくり返すと右のパターン（下の⑤と同じ）になります。  
 ![](@assets/2017/05/5last2edge_udufbf.gif)　**→**　![](@assets/2017/05/5last2edge_ududud.gif)
 
-| **以下、画像正面がF面、上がU面** |
+| **以下、画像正面がF面、上がU面** |  |  |
 | --- | --- | --- |
 | ① | ![](@assets/2017/05/5last2edge_uffubf.gif) | Uw' [R' F R F' R U' R'] Uw<br>Uw' [R U R' F R' F' R] Uw |
 | ② | ![](@assets/2017/05/5last2edge_ffufbu.gif) | Dw [R' F R F' R U' R'] Dw'<br>Dw [R U R' F R' F' R] Dw'<br>※①と②は本質的には同じパターンです |

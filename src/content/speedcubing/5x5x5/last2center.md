@@ -8,7 +8,7 @@ order: 0
 
 ※「t」は3層回しを表します。
 
-| **1列目（中央列）** |
+| **1列目（中央列）** |  |
 | --- | --- |
 | [![fl1](@assets/2016/04/fl1.gif)](@assets/2016/04/fl1.gif) | Rw U R'w<br>(U) R'w F Rw |
 | [![fl2](@assets/2016/04/fl2.gif)](@assets/2016/04/fl2.gif) | M' U' M<br>M' U M |
