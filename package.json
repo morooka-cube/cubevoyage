@@ -14,14 +14,14 @@
     "deploy": "export TZ=Asia/Tokyo; wrangler types && astro build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.4.1",
+    "@astrojs/cloudflare": "^14.4.2",
     "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.3.8"
+    "astro": "^7.4.2"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.11",
+    "@astrojs/check": "^0.9.12",
     "typescript": "^6.0.3",
     "vitest": "^5.0.5",
-    "wrangler": "^4.150.0"
+    "wrangler": "^4.154.0"
   }
 }
